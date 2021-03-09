@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform cameraPosition;
-
     private float runSpeed = 5.0f;
 
     // Start is called before the first frame update
@@ -41,8 +39,8 @@ public class PlayerController : MonoBehaviour
 
         rigidbody.velocity = new Vector2(xVel, yVel);
 
-        cameraPosition.position = new Vector3(this.transform.position.x,
-            this.transform.position.y,
-            cameraPosition.position.z);
+        //Debug.Log(this.transform.position.x + ", " + this.transform.position.y);
     }
+
+    
 }
