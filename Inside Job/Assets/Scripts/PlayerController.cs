@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public Transform cameraPosition;
 
-    private float runSpeed = 3.0f;
+    private float runSpeed = 5.0f;
 
     // Start is called before the first frame update
     void Start()
