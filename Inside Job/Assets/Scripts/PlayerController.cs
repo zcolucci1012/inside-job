@@ -42,5 +42,13 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(this.transform.position.x + ", " + this.transform.position.y);
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.name == "Bullet(Clone)")
+        {
+            Debug.Log("hmm");
+            
+        }
+    }
+
 }
