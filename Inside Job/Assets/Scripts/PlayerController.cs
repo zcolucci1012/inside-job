@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : EntityWithHealth
 {
-    private float runSpeed = 5.0f;
+    private float runSpeed = 6.0f;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    new void FixedUpdate()
     {
+        base.FixedUpdate();
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
 
         float xVel = 0;

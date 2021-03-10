@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public int LAYER_TO_HIT;
+    public int DAMAGE;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,11 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.gameObject.layer == LAYER_TO_HIT)
+        {
+            EntityWithHealth entity = collision.collider.gameObject.GetComponent<EntityWithHealth>();
+            entity.AddHealth(-DAMAGE);
+        }
         Destroy(this.gameObject);
     }
 }

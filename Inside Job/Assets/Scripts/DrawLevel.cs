@@ -8,18 +8,24 @@ public class DrawLevel : MonoBehaviour
     public float ROOM_WIDTH;
     public float ROOM_HEIGHT;
     public GameObject sampleRoom;
-    public Texture2D[] roomImages;
+    private Texture2D[] roomImages;
     public Transform playerTransform;
     private GameObject[] gameRooms;
+    private LinkedList<GameObject> enemies;
+    public GameObject intern;
     public Tile[] tiles;
     private int[,] rooms;
+    private int[,] doorsLocation;
     private int[,] doorsOpen;
     private bool[] roomOver;
     private bool[] roomVisited;
     
+    
     // Start is called before the first frame update
     void Start()
     {
+        enemies = new LinkedList<GameObject>();
+        roomImages = Resources.LoadAll<Texture2D>("Tiles/Rooms");
         int numRooms = Random.Range(8, 12);
         GenerateMap(numRooms);
         gameRooms = new GameObject[numRooms];
@@ -28,8 +34,13 @@ public class DrawLevel : MonoBehaviour
             gameRooms[ii] = Instantiate(sampleRoom);
             gameRooms[ii].transform.SetParent(this.transform);
             int r = Random.Range(0, roomImages.Length);
+            if (ii == 0)
+            {
+                r = 0;
+            }
             DrawRoom(gameRooms[ii], rooms[ii,0], rooms[ii,1], r, ii);
         }
+        Destroy(intern);
     }
 
     void DrawRoom(GameObject gameRoom, int x, int y, int r, int roomIndex)
@@ -57,11 +68,11 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), tiles[11]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2 - 1 && doorsOpen[roomIndex, 3] == 1)
+                    else if (jj == ROOM_HEIGHT / 2 - 1 && doorsLocation[roomIndex, 3] == 1)
                     {
                         leftDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[24]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2  && doorsOpen[roomIndex, 3] == 1)
+                    else if (jj == ROOM_HEIGHT / 2  && doorsLocation[roomIndex, 3] == 1)
                     {
                         leftDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[25]);
                     }
@@ -79,11 +90,11 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), tiles[7]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2 - 1&& doorsOpen[roomIndex, 1] == 1)
+                    else if (jj == ROOM_HEIGHT / 2 - 1&& doorsLocation[roomIndex, 1] == 1)
                     {
                         rightDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[21]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2 && doorsOpen[roomIndex, 1] == 1)
+                    else if (jj == ROOM_HEIGHT / 2 && doorsLocation[roomIndex, 1] == 1)
                     {
                         rightDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[20]);
                     }
@@ -93,11 +104,11 @@ public class DrawLevel : MonoBehaviour
                     }
                 } else if (jj == 0)
                 {
-                    if (ii == ROOM_WIDTH / 2 - 1&& doorsOpen[roomIndex, 2] == 1)
+                    if (ii == ROOM_WIDTH / 2 - 1&& doorsLocation[roomIndex, 2] == 1)
                     {
                         downDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[27]);
                     }
-                    else if (ii == ROOM_WIDTH / 2 && doorsOpen[roomIndex, 2] == 1)
+                    else if (ii == ROOM_WIDTH / 2 && doorsLocation[roomIndex, 2] == 1)
                     {
                         downDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[26]);
                     }
@@ -107,11 +118,11 @@ public class DrawLevel : MonoBehaviour
                     }
                 } else if (jj == ROOM_HEIGHT - 1)
                 {
-                    if (ii == ROOM_WIDTH / 2 - 1 && doorsOpen[roomIndex, 0] == 1)
+                    if (ii == ROOM_WIDTH / 2 - 1 && doorsLocation[roomIndex, 0] == 1)
                     {
                         upDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[22]);
                     }
-                    else if (ii == ROOM_WIDTH / 2 && doorsOpen[roomIndex, 0] == 1)
+                    else if (ii == ROOM_WIDTH / 2 && doorsLocation[roomIndex, 0] == 1)
                     {
                         upDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[23]);
                     }
@@ -122,6 +133,13 @@ public class DrawLevel : MonoBehaviour
                 } else if (roomImages[r].GetPixel(ii, jj) == Color.black)
                 {
                     walls.SetTile(new Vector3Int(ii, jj, 0), tiles[46]);
+                } else if (roomImages[r].GetPixel(ii, jj) == Color.red)
+                {
+                    GameObject newIntern = Instantiate(intern, this.transform.parent, true);
+                    enemies.AddLast(newIntern);
+                    Vector3 e = floor.CellToWorld(new Vector3Int(ii, jj, 0));
+                    newIntern.transform.position = new Vector3(e.x + 0.5f, e.y + 0.5f, e.z);
+                    floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(16, 19));
                 } else
                 {
                     floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(16, 19));
@@ -139,6 +157,7 @@ public class DrawLevel : MonoBehaviour
     void GenerateMap(int numRooms)
     {
         rooms = new int[numRooms, 2];
+        doorsLocation = new int[numRooms, 4];
         doorsOpen = new int[numRooms, 4];
         roomOver = new bool[numRooms];
         roomVisited = new bool[numRooms];
@@ -150,7 +169,7 @@ public class DrawLevel : MonoBehaviour
 
         for (int ii = 1; ii < numRooms; ii++)
         {
-            roomOver[ii] = true; //CHANGE TO FALSE LATER
+            roomOver[ii] = false; //CHANGE TO FALSE LATER
             roomVisited[ii] = false;
             int ss = Random.Range(0, ii);
             
@@ -204,8 +223,8 @@ public class DrawLevel : MonoBehaviour
             {
                 rooms[ii, 0] = newRoom[0];
                 rooms[ii, 1] = newRoom[1];
-                doorsOpen[ss, direction] = 1;
-                doorsOpen[ii, oppositeDirection] = 1;
+                doorsLocation[ss, direction] = 1;
+                doorsLocation[ii, oppositeDirection] = 1;
             }
         }
     }
@@ -224,13 +243,81 @@ public class DrawLevel : MonoBehaviour
                 fog.color = new Color(0, 0, 0, 0);
             }
 
+            bool found = false;
+            foreach (GameObject enemy in enemies)
+            {
+                if (enemy != null && InRoom(rooms[ii, 0], rooms[ii, 1], enemy.transform.position.x, enemy.transform.position.y))
+                {
+                    found = true;
+                }
+            }
+            if (!found && roomVisited[ii])
+            {
+                roomOver[ii] = true;
+            }
+
             if (roomOver[ii])
             {
-                
+                if (doorsOpen[ii,0] == 0
+                    || doorsOpen[ii, 1] == 0
+                    || doorsOpen[ii, 2] == 0
+                    || doorsOpen[ii, 3] == 0)
+                {
+                    Debug.Log("bruh");
+                    for (int jj = 0; jj < roomOver.Length; jj++)
+                    {
+                        if (rooms[ii, 0] == rooms[jj, 0])
+                        {
+                            if (rooms[ii, 1] + 1 == rooms[jj, 1])
+                            {
+                                doorsOpen[jj, 2] = 1;
+                            }
+                            if (rooms[ii, 1] - 1 == rooms[jj, 1])
+                            {
+                                doorsOpen[jj, 0] = 1;
+                            }
+                        }
+                        if (rooms[ii, 1] == rooms[jj, 1])
+                        {
+                            if (rooms[ii, 0] + 1 == rooms[jj, 0])
+                            {
+                                doorsOpen[jj, 3] = 1;
+                            }
+                            if (rooms[ii, 0] - 1 == rooms[jj, 0])
+                            {
+                                doorsOpen[jj, 1] = 1;
+                            }
+                        }
+                    }
+                }
+                doorsOpen[ii, 0] = 1;
+                doorsOpen[ii, 1] = 1;
+                doorsOpen[ii, 2] = 1;
+                doorsOpen[ii, 3] = 1;
             }
+
+            for (int jj = 0; jj < 4; jj++)
+            {
+                if (doorsOpen[ii, jj] == 1)
+                {
+                    gameRooms[ii].transform.GetChild(2).GetChild(jj).GetComponent<DoorController>().Open();
+                }
+            }
+
             if (InRoom(rooms[ii, 0], rooms[ii, 1], playerTransform.position.x, playerTransform.position.y))
             {
                 roomVisited[ii] = true;
+                if (!roomOver[ii])
+                {
+                    for (int jj = 0; jj < 4; jj++)
+                    {
+                        if (doorsOpen[ii, jj] == 1)
+                        {
+                            gameRooms[ii].transform.GetChild(2).GetChild(jj).GetComponent<DoorController>().CloseAndLock();
+                            doorsOpen[ii, jj] = 0;
+                        }
+                    }
+                }
             }
         }
         
@@ -238,10 +325,10 @@ public class DrawLevel : MonoBehaviour
 
     bool InRoom(int rx, int ry, float x, float y)
     {
-        return (x <= rx * ROOM_WIDTH + ROOM_WIDTH / 2
-            && x > rx * ROOM_WIDTH - ROOM_WIDTH / 2
-            && y <= ry * ROOM_HEIGHT + ROOM_HEIGHT / 2
-            && y > ry * ROOM_HEIGHT - ROOM_HEIGHT / 2);
+        return (x <= rx * ROOM_WIDTH + ROOM_WIDTH / 2 - 1
+            && x > rx * ROOM_WIDTH - ROOM_WIDTH / 2 + 1
+            && y <= ry * ROOM_HEIGHT + ROOM_HEIGHT / 2 - 1
+            && y > ry * ROOM_HEIGHT - ROOM_HEIGHT / 2 + 1); 
     }
 
 }

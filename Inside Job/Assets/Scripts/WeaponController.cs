@@ -8,7 +8,6 @@ public class WeaponController : MonoBehaviour
     public int FIRE_RATE;
     private int fireTick;
     public GameObject bullet;
-    private SpriteRenderer flippedSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +18,7 @@ public class WeaponController : MonoBehaviour
     void Update() 
     {
         bullet.transform.position = this.transform.position;
+
         float x = Input.mousePosition.x - Screen.width / 2;
         float y = Input.mousePosition.y - Screen.height / 2;
         float rad = Mathf.Atan2(y, x);
