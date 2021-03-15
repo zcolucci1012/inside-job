@@ -22,22 +22,49 @@ public class PlayerController : EntityWithHealth
 
         float xVel = 0;
         float yVel = 0;
+        int dx = 0;
+        int dy = 0;
 
         if (Input.GetKey("up") || Input.GetKey("w"))
         {
             yVel += RUN_SPEED;
+            dy++;
         }
         if (Input.GetKey("left") || Input.GetKey("a"))
         {
             xVel -= RUN_SPEED;
+            dx--;
         }
         if (Input.GetKey("down") || Input.GetKey("s"))
         {
             yVel -= RUN_SPEED;
+            dy--;
         }
         if (Input.GetKey("right") || Input.GetKey("d"))
         {
             xVel += RUN_SPEED;
+            dx++;
+        }
+
+        if (dx == 1 && dy == 1)
+        {
+            xVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
+            yVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
+        }
+        else if (dx == -1 && dy == 1)
+        {
+            xVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
+            yVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
+        }
+        else if (dx == -1 && dy == -1)
+        {
+            xVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
+            yVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
+        }
+        else if (dx == 1 && dy == -1)
+        {
+            xVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
+            yVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
         }
 
         rigidbody.velocity = new Vector2(xVel, yVel);

@@ -15,7 +15,7 @@ public class WeaponController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() 
+    void Update()
     {
         bullet.transform.position = this.transform.position;
 
@@ -29,7 +29,7 @@ public class WeaponController : MonoBehaviour
             this.transform.position.z);
         this.GetComponent<SpriteRenderer>().flipY = x < 0;
 
-        if (Input.GetKeyDown("space") && fireTick == FIRE_RATE)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown("space")) && fireTick == FIRE_RATE)
         {
             GameObject newBullet = Instantiate(bullet);
             newBullet.transform.position = new Vector3(this.transform.position.x + Mathf.Cos(rad) * 0.2f,

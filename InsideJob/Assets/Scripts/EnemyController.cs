@@ -10,10 +10,12 @@ public class EnemyController : EntityWithHealth
     public int ATTACK_INTERVAL;
     public float BULLET_FORCE;
     public int THROW_ANIM_LENGTH;
+    public float SIGHT_RANGE;
     public Sprite[] throwing;
-    private int attackTick;
-    private int animTick;
+    private int attackTick = 0;
+    private int animTick = 0;
     private bool raycast = false;
+    private bool justSaw = true;
 
     new void Start()
     {
@@ -35,7 +37,7 @@ public class EnemyController : EntityWithHealth
             new Vector2(ex, ey),
             d,
             mask);
-        if (!raycast)
+        if (!raycast && this.GetComponent<SpriteRenderer>().isVisible)
         {
             if (ex > 0)
             {
@@ -77,8 +79,13 @@ public class EnemyController : EntityWithHealth
     new void FixedUpdate()
     {
         base.FixedUpdate();
-        if (!raycast)
+        if (justSaw && !raycast && this.GetComponent<SpriteRenderer>().isVisible)
         {
+            attackTick = ATTACK_INTERVAL / 2;
+        }
+        if (!raycast && this.GetComponent<SpriteRenderer>().isVisible)
+        {
+            justSaw = false;
             attackTick++;
 
             if (animTick == 0)
@@ -92,6 +99,11 @@ public class EnemyController : EntityWithHealth
                 this.bullet.GetComponent<SpriteRenderer>().enabled = false;
                 animTick--;
             }
+        } else
+        {
+            justSaw = true;
+            attackTick = 0;
+            animTick = 0;
         }
     }
 

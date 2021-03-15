@@ -21,6 +21,9 @@ public class DrawLevel : MonoBehaviour
     private int[,] doorsOpen;
     private bool[] roomOver;
     private bool[] roomVisited;
+    private int[] roomDistances;
+    private int furthestRoomDistance = 0;
+    private int furthestRoomIndex = -1;
     
     
     // Start is called before the first frame update
@@ -30,17 +33,18 @@ public class DrawLevel : MonoBehaviour
         roomImages = Resources.LoadAll<Texture2D>("Tiles/Rooms");
         int numRooms = Random.Range(8, 12);
         GenerateMap(numRooms);
+        Debug.Log(rooms[furthestRoomIndex, 0] + ", " + rooms[furthestRoomIndex, 1] + ": " + furthestRoomDistance);
         gameRooms = new GameObject[numRooms];
         for (int ii = 0; ii < numRooms; ii++)
         {
             gameRooms[ii] = Instantiate(sampleRoom);
             gameRooms[ii].transform.SetParent(this.transform);
-            int r = Random.Range(0, roomImages.Length);
+            int r = Random.Range(1, roomImages.Length);
             if (ii == 0)
             {
                 r = 0;
             }
-            if (ii == numRooms - 1) //probably change which room is goal
+            if (ii == furthestRoomIndex) //probably change which room is goal
             {
                 DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], endRoom, ii);
             } else
@@ -179,15 +183,18 @@ public class DrawLevel : MonoBehaviour
         doorsOpen = new int[numRooms, 4];
         roomOver = new bool[numRooms];
         roomVisited = new bool[numRooms];
+        roomDistances = new int[numRooms];
+
 
         rooms[0, 0] = 0;
         rooms[0, 1] = 0;
         roomOver[0] = true;
         roomVisited[0] = true;
+        roomDistances[0] = 0;
 
         for (int ii = 1; ii < numRooms; ii++)
         {
-            roomOver[ii] = false; //CHANGE TO FALSE LATER
+            roomOver[ii] = false;
             roomVisited[ii] = false;
             int ss = Random.Range(0, ii);
             
@@ -243,6 +250,12 @@ public class DrawLevel : MonoBehaviour
                 rooms[ii, 1] = newRoom[1];
                 doorsLocation[ss, direction] = 1;
                 doorsLocation[ii, oppositeDirection] = 1;
+                roomDistances[ii] = roomDistances[ss] + 1;
+                if (roomDistances[ii] > furthestRoomDistance)
+                {
+                    furthestRoomDistance = roomDistances[ii];
+                    furthestRoomIndex = ii;
+                }
             }
         }
     }
