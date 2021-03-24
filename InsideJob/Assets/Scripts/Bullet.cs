@@ -29,4 +29,14 @@ public class Bullet : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == LAYER_TO_HIT)
+        {
+            EntityWithHealth entity = collider.gameObject.GetComponent<EntityWithHealth>();
+            entity.AddHealth(-DAMAGE);
+        }
+        Destroy(this.gameObject);
+    }
 }

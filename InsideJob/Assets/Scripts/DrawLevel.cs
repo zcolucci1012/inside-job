@@ -33,7 +33,6 @@ public class DrawLevel : MonoBehaviour
         roomImages = Resources.LoadAll<Texture2D>("Tiles/Rooms");
         int numRooms = Random.Range(8, 12);
         GenerateMap(numRooms);
-        Debug.Log(rooms[furthestRoomIndex, 0] + ", " + rooms[furthestRoomIndex, 1] + ": " + furthestRoomDistance);
         gameRooms = new GameObject[numRooms];
         for (int ii = 0; ii < numRooms; ii++)
         {
