@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 224549157}
   - component: {fileID: 224549160}
   - component: {fileID: 224549161}
+  - component: {fileID: 224549162}
   m_Layer: 10
   m_Name: Stapler
   m_TagString: Untagged
@@ -148,9 +149,9 @@ MonoBehaviour:
   REWARD: 20
   playerTransform: {fileID: 810266708}
   sprites:
-  - {fileID: 21300000, guid: 6d879c7b17c112d4385e6b9ffd089655, type: 3}
-  - {fileID: 21300000, guid: 53c01210d314c3945b9a24bd7336eab3, type: 3}
-  - {fileID: 21300000, guid: 9e025d683a8643445a377b6ebfb79f92, type: 3}
+  - {fileID: 21300000, guid: ee0381e905677644199650a56832405d, type: 3}
+  - {fileID: 21300000, guid: d5a5f362ee5e6484bbcbf10bc54cbe8d, type: 3}
+  - {fileID: 21300000, guid: 59aaf5dda2475aa4090ba2c61b1e5ea8, type: 3}
   SPEED: 3
   DAMAGE: 30
 --- !u!212 &224549158
@@ -190,12 +191,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d879c7b17c112d4385e6b9ffd089655, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee0381e905677644199650a56832405d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.35}
+  m_Size: {x: 0.21, y: 0.35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -228,18 +229,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.022675782, y: 0}
+  m_Offset: {x: 0.00077840313, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.35}
-    newSize: {x: 0.32, y: 0.35}
+    oldSize: {x: 0.21, y: 0.35}
+    newSize: {x: 0.21, y: 0.35}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23086303, y: 0.35}
+  m_Size: {x: 0.21062434, y: 0.35}
   m_EdgeRadius: 0
 --- !u!50 &224549161
 Rigidbody2D:
@@ -262,6 +263,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &224549162
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224549156}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.005438097, y: -0.0031136293}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.21, y: 0.35}
+    newSize: {x: 0.21, y: 0.35}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.085024506, y: 0.11035688}
+  m_EdgeRadius: 0
 --- !u!1 &225798133
 GameObject:
   m_ObjectHideFlags: 0

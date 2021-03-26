@@ -18,7 +18,7 @@ public class EnemyController : EntityWithHealth
     protected new virtual void Start()
     {
         base.Start();
-        mask = LayerMask.GetMask("Wall");
+        mask = LayerMask.GetMask("Wall", "Destructable");
         Physics2D.IgnoreLayerCollision(9, 8);
         Physics2D.IgnoreLayerCollision(9, 10);
     }

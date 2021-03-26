@@ -7,14 +7,22 @@ public class DrawLevel : MonoBehaviour
 {
     public float ROOM_WIDTH;
     public float ROOM_HEIGHT;
+
     public GameObject sampleRoom;
     private Texture2D[] roomImages;
     public Texture2D endRoom;
     public Transform playerTransform;
     private GameObject[] gameRooms;
+
+    private Tilemap floor;
+    private Tilemap walls;
+
     private LinkedList<GameObject> enemies;
     public GameObject intern;
+    public GameObject stapler;
+    public GameObject fileCabinet;
     public GameObject goal;
+
     public Tile[] tiles;
     private int[,] rooms;
     private int[,] doorsLocation;
@@ -38,7 +46,7 @@ public class DrawLevel : MonoBehaviour
         {
             gameRooms[ii] = Instantiate(sampleRoom);
             gameRooms[ii].transform.SetParent(this.transform);
-            int r = Random.Range(1, roomImages.Length);
+            int r = Random.Range(0, roomImages.Length);
             if (ii == 0)
             {
                 r = 0;
@@ -53,14 +61,16 @@ public class DrawLevel : MonoBehaviour
             
         }
         Destroy(intern);
+        Destroy(stapler);
+        Destroy(fileCabinet);
         Destroy(goal);
     }
 
     void DrawRoom(GameObject gameRoom, int x, int y, Texture2D roomImage, int roomIndex)
     {
         gameRoom.transform.position = new Vector3(x * ROOM_WIDTH - ROOM_WIDTH / 2, y * ROOM_HEIGHT - ROOM_HEIGHT / 2, 0);
-        Tilemap walls = gameRoom.transform.GetChild(0).GetComponent<Tilemap>();
-        Tilemap floor = gameRoom.transform.GetChild(1).GetComponent<Tilemap>();
+        this.walls = gameRoom.transform.GetChild(0).GetComponent<Tilemap>();
+        this.floor = gameRoom.transform.GetChild(1).GetComponent<Tilemap>();
         Transform doors = gameRoom.transform.GetChild(2);
         Tilemap upDoors = doors.GetChild(0).GetComponent<Tilemap>();
         Tilemap rightDoors = doors.GetChild(1).GetComponent<Tilemap>();
@@ -143,30 +153,42 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(8, 10));
                     }
-                } else if (roomImage.GetPixel(ii, jj) == Color.black)
+                }
+                else if (roomImage.GetPixel(ii, jj) == Color.black)
                 {
                     walls.SetTile(new Vector3Int(ii, jj, 0), tiles[46]);
-                } else if (roomImage.GetPixel(ii, jj) == Color.red)
-                {
-                    GameObject newIntern = Instantiate(intern, this.transform.parent, true);
-                    enemies.AddLast(newIntern);
-                    Vector3 e = floor.CellToWorld(new Vector3Int(ii, jj, 0));
-                    newIntern.transform.position = new Vector3(e.x + 0.5f, e.y + 0.5f, e.z - 0.25f);
-                    floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(16, 19));
-                } else if (roomImage.GetPixel(ii, jj) == Color.blue)
-                {
-                    //TEMPORARY GOAL
-                    GameObject newGoal = Instantiate(goal, this.transform.parent, true);
-                    Vector3 g = floor.CellToWorld(new Vector3Int(ii, jj, 0));
-                    newGoal.transform.position = new Vector3(g.x + 0.5f, g.y + 0.5f, g.z - 0.25f);
-                    floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(16, 19));
                 }
                 else
                 {
+                    if (roomImage.GetPixel(ii, jj) == Color.red)
+                    {
+                        AddToWorld(intern, ii, jj);
+                    }
+                    else if (roomImage.GetPixel(ii, jj) == Color.blue)
+                    {
+                        AddToWorld(goal, ii, jj);
+                    } else if (roomImage.GetPixel(ii, jj) == Color.green)
+                    {
+                        AddToWorld(fileCabinet, ii, jj);
+                    } else if (roomImage.GetPixel(ii, jj) == new Color(1, 1, 0))
+                    {
+                        AddToWorld(stapler, ii, jj);
+                    }
                     floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(16, 19));
                 }
             }
         }
+    }
+
+    private void AddToWorld(GameObject obj, int ii, int jj)
+    {
+        GameObject newObj = Instantiate(obj, this.transform.parent, true);
+        if (newObj.layer == 10)
+        {
+            enemies.AddLast(newObj);
+        }
+        Vector3 p = floor.CellToWorld(new Vector3Int(ii, jj, 0));
+        newObj.transform.position = new Vector3(p.x + 0.5f, p.y + 0.5f, p.z - 0.25f);
     }
 
     Tile GetRandomTile(int lb, int ub)

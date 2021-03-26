@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    
-    public int LAYER_TO_HIT;
+    public int[] LAYERS_TO_HIT;
     public int DAMAGE;
     // Start is called before the first frame update
     void Start()
@@ -22,21 +21,27 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == LAYER_TO_HIT)
+        for (int ii = 0; ii < LAYERS_TO_HIT.Length; ii++)
         {
-            EntityWithHealth entity = collision.collider.gameObject.GetComponent<EntityWithHealth>();
-            entity.AddHealth(-DAMAGE);
+            if (collision.collider.gameObject.layer == LAYERS_TO_HIT[ii])
+            {
+                EntityWithHealth entity = collision.collider.gameObject.GetComponent<EntityWithHealth>();
+                entity.AddHealth(-DAMAGE);
+            }
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == LAYER_TO_HIT)
+        for (int ii = 0; ii < LAYERS_TO_HIT.Length; ii++)
         {
-            EntityWithHealth entity = collider.gameObject.GetComponent<EntityWithHealth>();
-            entity.AddHealth(-DAMAGE);
+            if (collider.gameObject.layer == LAYERS_TO_HIT[ii])
+            {
+                EntityWithHealth entity = collider.gameObject.GetComponent<EntityWithHealth>();
+                entity.AddHealth(-DAMAGE);
+            }
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class EntityWithHealth : MonoBehaviour
 {
     public float TOTAL_HEALTH;
-    private float currentHealth;
+    public bool FLASHES = true;
+    protected float currentHealth;
     private bool flashGreen = false;
     private bool flashRed = false;
     private int FLASH_TICKS = 10;
@@ -19,23 +20,27 @@ public abstract class EntityWithHealth : MonoBehaviour
     // Update is called once per frame
     protected void FixedUpdate()
     {
-        Color newColor = new Color(255, 255, 255);
-        if (flashGreen)
+        if (FLASHES)
         {
-            newColor = GetColor(flashTick, FLASH_TICKS, 0, 200, 0);
-        }
-        if (flashRed)
-        {
-            newColor = GetColor(flashTick, FLASH_TICKS, 200, 0, 0);
-        }
-        if (flashTick >= 0)
-        {
-            this.gameObject.GetComponent<SpriteRenderer>().color = newColor;
-            flashTick--;
-        } else
-        {
-            flashGreen = false;
-            flashRed = false;
+            Color newColor = new Color(255, 255, 255);
+            if (flashGreen)
+            {
+                newColor = GetColor(flashTick, FLASH_TICKS, 0, 200, 0);
+            }
+            if (flashRed)
+            {
+                newColor = GetColor(flashTick, FLASH_TICKS, 200, 0, 0);
+            }
+            if (flashTick >= 0)
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().color = newColor;
+                flashTick--;
+            }
+            else
+            {
+                flashGreen = false;
+                flashRed = false;
+            }
         }
     }
 
@@ -49,14 +54,17 @@ public abstract class EntityWithHealth : MonoBehaviour
 
     public virtual void AddHealth(float health)
     {
-        flashRed = health <= -10f;
-        flashGreen = health >= 10f;
-        if (Mathf.Abs(health) >= 10f)
+        if (FLASHES)
         {
+            flashRed = health <= -10f;
+            flashGreen = health >= 10f;
+            if (Mathf.Abs(health) >= 10f)
+            {
 
-            flashTick = FLASH_TICKS;
+                flashTick = FLASH_TICKS;
+            }
         }
-        
+
         this.currentHealth += health;
         if (this.currentHealth <= 0f)
         {
