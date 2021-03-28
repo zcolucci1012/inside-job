@@ -46,7 +46,7 @@ public class DrawLevel : MonoBehaviour
         {
             gameRooms[ii] = Instantiate(sampleRoom);
             gameRooms[ii].transform.SetParent(this.transform);
-            int r = Random.Range(0, roomImages.Length);
+            int r = Random.Range(1, roomImages.Length);
             if (ii == 0)
             {
                 r = 0;
