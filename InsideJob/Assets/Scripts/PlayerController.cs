@@ -77,9 +77,9 @@ public class PlayerController : EntityWithHealth
         //Debug.Log(this.transform.position.x + ", " + this.transform.position.y);
     }
 
-    public void ToggleCanMove()
+    public void CanMove(bool canMove)
     {
-        this.canMove = !this.canMove;
+        this.canMove = canMove;
     }
 
     public override void AddHealth(float health)

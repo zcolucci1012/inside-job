@@ -25,7 +25,6 @@ public class FileCabinet : EntityWithHealth
     // Update is called once per frame
     void Update()
     {
-        print(this.currentHealth);
         if (this.currentHealth == this.TOTAL_HEALTH)
         {
             this.render.sprite = sprites[0];

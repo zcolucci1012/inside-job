@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : EntityWithHealth
 {
+    public float ROOM_WIDTH = 20;
+    public float ROOM_HEIGHT = 16;
     public float REWARD;
     public Transform playerTransform;
     public Sprite[] sprites;
@@ -12,7 +14,9 @@ public class EnemyController : EntityWithHealth
     protected float ex;
     protected float ey;
     protected float d;
+    protected float sameRoom;
     private int mask;
+    protected bool awake = false;
 
     // Start is called before the first frame update
     protected new virtual void Start()
@@ -41,10 +45,18 @@ public class EnemyController : EntityWithHealth
             this.d,
             mask);
         this.onScreen = this.GetComponent<SpriteRenderer>().isVisible;
+        this.awake = InSameRoom(this.playerTransform.position, this.transform.position);
+        print(this.awake);
     }
 
     protected new virtual void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public bool InSameRoom(Vector3 e1, Vector3 e2)
+    {
+        print(e1.x + ", " + e1.y + ", " + e2.x + ", " + e2.y);
+        return false;
     }
 }

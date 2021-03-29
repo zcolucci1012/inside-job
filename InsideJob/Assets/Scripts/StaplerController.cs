@@ -25,7 +25,7 @@ public class StaplerController : EnemyController
     {
         base.Update();
 
-        if (!bite && seePlayer && onScreen)
+        if (!bite && onScreen && awake)
         {
             SpriteRenderer renderer = this.GetComponent<SpriteRenderer>();
             if (idleTicks > (7 * IDLE_TICKS) / 8)
@@ -72,7 +72,7 @@ public class StaplerController : EnemyController
             {
                 this.GetComponent<SpriteRenderer>().sprite = sprites[0];
                 PlayerController player = this.playerTransform.gameObject.GetComponent<PlayerController>();
-                player.ToggleCanMove();
+                player.CanMove(true);
                 cooldownTicks = COOLDOWN_TICKS;
                 bite = false;
                 biteTicks = 0;
@@ -98,7 +98,7 @@ public class StaplerController : EnemyController
                 this.bite = true;
                 PlayerController player = collider.gameObject.GetComponent<PlayerController>();
                 player.AddHealth(-DAMAGE);
-                player.ToggleCanMove();
+                player.CanMove(false);
             }
         }
     }

@@ -26,7 +26,7 @@ public class InternController : EnemyController
     new void Update()
     {
         base.Update();
-        if (seePlayer && onScreen)
+        if (seePlayer && onScreen && awake)
         {
             if (ex > 0)
             {
@@ -67,11 +67,11 @@ public class InternController : EnemyController
     new void FixedUpdate()
     {
         base.FixedUpdate();
-        if (justSaw && seePlayer && onScreen)
+        if (justSaw && seePlayer && onScreen && awake)
         {
             attackTick = ATTACK_INTERVAL / 2;
         }
-        if (seePlayer && onScreen)
+        if (seePlayer && onScreen && awake)
         {
             justSaw = false;
             attackTick++;

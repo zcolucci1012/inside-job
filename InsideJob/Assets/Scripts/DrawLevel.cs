@@ -42,6 +42,14 @@ public class DrawLevel : MonoBehaviour
         int numRooms = Random.Range(8, 12);
         GenerateMap(numRooms);
         gameRooms = new GameObject[numRooms];
+
+        int allRooms = roomImages.Length;
+        bool[] used = new bool[allRooms];
+        for (int ii = 0; ii < allRooms; ii++)
+        {
+            used[ii] = false;
+        }
+
         for (int ii = 0; ii < numRooms; ii++)
         {
             gameRooms[ii] = Instantiate(sampleRoom);
@@ -56,7 +64,15 @@ public class DrawLevel : MonoBehaviour
                 DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], endRoom, ii);
             } else
             {
-                DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], roomImages[r], ii);
+                while (used[r])
+                {
+                    r = Random.Range(1, roomImages.Length);
+                }
+                {
+                    print(ii + ", " + r);
+                    DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], roomImages[r], ii);
+                    used[ii] = true;
+                }
             }
             
         }
