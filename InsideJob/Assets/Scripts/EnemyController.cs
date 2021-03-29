@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyController : EntityWithHealth
 {
-    public float ROOM_WIDTH = 20;
-    public float ROOM_HEIGHT = 16;
+    public int ROOM_WIDTH = 20;
+    public int ROOM_HEIGHT = 16;
     public float REWARD;
     public Transform playerTransform;
     public Sprite[] sprites;
@@ -56,7 +56,11 @@ public class EnemyController : EntityWithHealth
 
     public bool InSameRoom(Vector3 e1, Vector3 e2)
     {
-        print(e1.x + ", " + e1.y + ", " + e2.x + ", " + e2.y);
-        return false;
+        int rx1 = (int)Mathf.Sign(e1.x) * (int)((Mathf.Abs(e1.x) + ROOM_WIDTH / 2) / ROOM_WIDTH);
+        int ry1 = (int)Mathf.Sign(e1.y) * (int)((Mathf.Abs(e1.y) + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
+        int rx2 = (int)Mathf.Sign(e2.x) * (int)((Mathf.Abs(e2.x) + ROOM_WIDTH / 2) / ROOM_WIDTH);
+        int ry2 = (int)Mathf.Sign(e2.y) * (int)((Mathf.Abs(e2.y) + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
+        //print(rx1 + ", " + ry1);
+        return (rx1 == rx2) && (ry1 == ry2);
     }
 }

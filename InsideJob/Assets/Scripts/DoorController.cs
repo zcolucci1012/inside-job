@@ -10,6 +10,7 @@ public class DoorController : MonoBehaviour
     public int ROOM_HEIGHT;
     public int direction;
     private bool unlocked = false;
+    private bool open = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,19 @@ public class DoorController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.name == "Player" && this.unlocked)
+        {
+            Open();
+        }
+    }
+
+    public void Unlock()
+    {
+        this.unlocked = true;
+    }
+
+    public void CloseAndLock()
+    {
+        if (open)
         {
             Tilemap tiles = this.GetComponent<Tilemap>();
 
@@ -56,7 +70,7 @@ public class DoorController : MonoBehaviour
             TileBase tile1 = tiles.GetTile(cell1);
             TileBase tile2 = tiles.GetTile(cell2);
             if (tile1 != null && tile2 != null)
-            { 
+            {
                 int tileNum1 = System.Int32.Parse(tile1.name.Substring(7));
                 tile1 = openDoors[tileNum1 - 20];
                 int tileNum2 = System.Int32.Parse(tile2.name.Substring(7));
@@ -64,57 +78,58 @@ public class DoorController : MonoBehaviour
                 tiles.SetTile(cell1, tile1);
                 tiles.SetTile(cell2, tile2);
             }
-                    
-            this.GetComponent<TilemapCollider2D>().enabled = false;
+
+            this.GetComponent<TilemapCollider2D>().enabled = true;
+            this.unlocked = false;
+            this.open = false;
         }
     }
+
 
     public void Open()
     {
-        this.unlocked = true;
-    }
+        if (!open)
+        {
+            Tilemap tiles = this.GetComponent<Tilemap>();
 
-    public void CloseAndLock()
-    {
-        Tilemap tiles = this.GetComponent<Tilemap>();
-
-        Vector3Int cell1;
-        Vector3Int cell2;
-        if (direction == 0)
-        {
-            cell1 = new Vector3Int(ROOM_WIDTH / 2 - 1, ROOM_HEIGHT - 1, 0);
-            cell2 = new Vector3Int(ROOM_WIDTH / 2, ROOM_HEIGHT - 1, 0);
-        }
-        else if (direction == 1)
-        {
-            cell1 = new Vector3Int(ROOM_WIDTH - 1, ROOM_HEIGHT / 2 - 1, 0);
-            cell2 = new Vector3Int(ROOM_WIDTH - 1, ROOM_HEIGHT / 2, 0);
-        }
-        else if (direction == 2)
-        {
-            cell1 = new Vector3Int(ROOM_WIDTH / 2, 0, 0);
-            cell2 = new Vector3Int(ROOM_WIDTH / 2 - 1, 0, 0);
-        }
-        else
-        {
-            cell1 = new Vector3Int(0, ROOM_HEIGHT / 2, 0);
-            cell2 = new Vector3Int(0, ROOM_HEIGHT / 2 - 1, 0);
-        }
+            Vector3Int cell1;
+            Vector3Int cell2;
+            if (direction == 0)
+            {
+                cell1 = new Vector3Int(ROOM_WIDTH / 2 - 1, ROOM_HEIGHT - 1, 0);
+                cell2 = new Vector3Int(ROOM_WIDTH / 2, ROOM_HEIGHT - 1, 0);
+            }
+            else if (direction == 1)
+            {
+                cell1 = new Vector3Int(ROOM_WIDTH - 1, ROOM_HEIGHT / 2 - 1, 0);
+                cell2 = new Vector3Int(ROOM_WIDTH - 1, ROOM_HEIGHT / 2, 0);
+            }
+            else if (direction == 2)
+            {
+                cell1 = new Vector3Int(ROOM_WIDTH / 2, 0, 0);
+                cell2 = new Vector3Int(ROOM_WIDTH / 2 - 1, 0, 0);
+            }
+            else
+            {
+                cell1 = new Vector3Int(0, ROOM_HEIGHT / 2, 0);
+                cell2 = new Vector3Int(0, ROOM_HEIGHT / 2 - 1, 0);
+            }
 
 
-        TileBase tile1 = tiles.GetTile(cell1);
-        TileBase tile2 = tiles.GetTile(cell2);
-        if (tile1 != null && tile2 != null)
-        {
-            int tileNum1 = System.Int32.Parse(tile1.name.Substring(7));
-            tile1 = openDoors[tileNum1 - 20];
-            int tileNum2 = System.Int32.Parse(tile2.name.Substring(7));
-            tile2 = openDoors[tileNum2 - 20];
-            tiles.SetTile(cell1, tile1);
-            tiles.SetTile(cell2, tile2);
-        }
+            TileBase tile1 = tiles.GetTile(cell1);
+            TileBase tile2 = tiles.GetTile(cell2);
+            if (tile1 != null && tile2 != null)
+            {
+                int tileNum1 = System.Int32.Parse(tile1.name.Substring(7));
+                tile1 = openDoors[tileNum1 - 20];
+                int tileNum2 = System.Int32.Parse(tile2.name.Substring(7));
+                tile2 = openDoors[tileNum2 - 20];
+                tiles.SetTile(cell1, tile1);
+                tiles.SetTile(cell2, tile2);
+            }
 
-        this.GetComponent<TilemapCollider2D>().enabled = true;
-        this.unlocked = false;
+            this.GetComponent<TilemapCollider2D>().enabled = false;
+            this.open = true;
+        }  
     }
 }

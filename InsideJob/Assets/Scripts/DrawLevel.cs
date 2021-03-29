@@ -302,6 +302,7 @@ public class DrawLevel : MonoBehaviour
     {
         for (int ii = 0; ii < roomVisited.Length; ii++)
         {
+            //manage fog
             SpriteRenderer fog = gameRooms[ii].transform.GetChild(3).GetComponent<SpriteRenderer>();
             if (!roomVisited[ii])
             {
@@ -311,6 +312,7 @@ public class DrawLevel : MonoBehaviour
                 fog.color = new Color(0, 0, 0, 0);
             }
 
+            //set room over if enemies found
             bool found = false;
             foreach (GameObject enemy in enemies)
             {
@@ -324,6 +326,7 @@ public class DrawLevel : MonoBehaviour
                 roomOver[ii] = true;
             }
 
+            //unlock doors if roomOver
             if (roomOver[ii])
             {
                 if (doorsOpen[ii,0] == 0
@@ -367,7 +370,7 @@ public class DrawLevel : MonoBehaviour
             {
                 if (doorsOpen[ii, jj] == 1)
                 {
-                    gameRooms[ii].transform.GetChild(2).GetChild(jj).GetComponent<DoorController>().Open();
+                    gameRooms[ii].transform.GetChild(2).GetChild(jj).GetComponent<DoorController>().Unlock();
                 }
             }
 
@@ -383,6 +386,12 @@ public class DrawLevel : MonoBehaviour
                             gameRooms[ii].transform.GetChild(2).GetChild(jj).GetComponent<DoorController>().CloseAndLock();
                             doorsOpen[ii, jj] = 0;
                         }
+                    }
+                } else
+                {
+                    for (int jj = 0; jj < 4; jj++)
+                    { 
+                        gameRooms[ii].transform.GetChild(2).GetChild(jj).GetComponent<DoorController>().Open();
                     }
                 }
             }
