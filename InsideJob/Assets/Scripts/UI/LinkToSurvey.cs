@@ -18,6 +18,6 @@ public class LinkToSurvey : MonoBehaviour
 
     public void GoToSurvey()
     {
-        Application.OpenURL("https://forms.gle/F1oymAfjVS6NgxNa7");
+        Application.OpenURL("https://forms.gle/z358d1tTugqHCpRV6");
     }
 }
