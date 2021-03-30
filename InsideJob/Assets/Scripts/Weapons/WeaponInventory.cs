@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeaponInventory : MonoBehaviour
 {
@@ -27,7 +28,11 @@ public class WeaponInventory : MonoBehaviour
         this.activeWeapon = this.transform.GetChild(0);
         inventory[0].SetParent(GameObject.Find("Player").transform);
         inventory[0].GetComponent<Weapon>().SetActive(true);
-        //AddWeapon("Buckshot");
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            AddWeapon("Buckshot");
+        }
+
     }
 
     public void AddWeapon(string name)

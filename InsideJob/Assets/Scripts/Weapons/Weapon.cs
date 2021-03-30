@@ -38,9 +38,39 @@ public abstract class Weapon : MonoBehaviour
             this.rad = Mathf.Atan2(y, x);
             this.rotation = 180 * rad / Mathf.PI;
             this.transform.eulerAngles = new Vector3(0, 0, rotation);
-            this.transform.position = new Vector3(this.transform.parent.position.x + Mathf.Cos(rad) * 0.4f,
-                this.transform.parent.position.y + Mathf.Sin(rad) * 0.4f - 0.05f,
-                this.transform.position.z);
+
+            if (x < -40)
+            {
+                this.transform.position = new Vector3(this.transform.parent.position.x + Mathf.Cos(rad)
+                * ((RectTransform)this.transform).rect.height - 0.2f,
+                this.transform.parent.position.y + Mathf.Sin(rad)
+                * ((RectTransform)this.transform).rect.width - 0.15f,
+                this.transform.parent.position.z - 0.1f);
+            }
+            else if (x <= 40)
+            {
+                this.transform.position = new Vector3(this.transform.parent.position.x + Mathf.Cos(rad)
+                * ((RectTransform)this.transform).rect.height + 0.005f * x,
+                this.transform.parent.position.y + Mathf.Sin(rad)
+                * ((RectTransform)this.transform).rect.width - 0.15f,
+                this.transform.parent.position.z - 0.1f);
+            }
+            else
+            {
+                this.transform.position = new Vector3(this.transform.parent.position.x + Mathf.Cos(rad)
+                * ((RectTransform)this.transform).rect.height + 0.2f,
+                this.transform.parent.position.y + Mathf.Sin(rad)
+                * ((RectTransform)this.transform).rect.width - 0.15f,
+                this.transform.parent.position.z - 0.1f);
+            }
+
+            if (y > 0 && x > -40 && x <= 40)
+            {
+                this.transform.position = new Vector3(this.transform.position.x,
+                    this.transform.position.y,
+                    0);
+            }
+            
             this.GetComponent<SpriteRenderer>().flipY = x < 0;
 
             if ((auto && (Input.GetMouseButton(0) || Input.GetKey("space")) && fireTick == FIRE_RATE)
