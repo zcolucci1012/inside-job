@@ -11,6 +11,7 @@ public class DrawLevel : MonoBehaviour
     public GameObject sampleRoom;
     private Texture2D[] roomImages;
     public Texture2D endRoom;
+    public Texture2D store;
     public Transform playerTransform;
     private GameObject[] gameRooms;
 
@@ -22,8 +23,10 @@ public class DrawLevel : MonoBehaviour
     public GameObject stapler;
     public GameObject fileCabinet;
     public GameObject goal;
+    public GameObject cashier;
 
     public Tile[] tiles;
+    public Tile[] storeTiles;
     private int[,] rooms;
     private int[,] doorsLocation;
     private int[,] doorsOpen;
@@ -50,37 +53,49 @@ public class DrawLevel : MonoBehaviour
             used[ii] = false;
         }
 
+        int storeIndex = Random.Range(1, numRooms);
+        while (storeIndex == furthestRoomIndex)
+        {
+            storeIndex = Random.Range(1, numRooms);
+        }
         for (int ii = 0; ii < numRooms; ii++)
         {
             gameRooms[ii] = Instantiate(sampleRoom);
             gameRooms[ii].transform.SetParent(this.transform);
             int r = Random.Range(1, roomImages.Length);
+
             if (ii == 0)
             {
                 r = 0;
             }
-            if (ii == furthestRoomIndex) //probably change which room is goal
+            if (ii == furthestRoomIndex)
             {
-                DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], endRoom, ii);
-            } else
+                DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], endRoom, ii, "first");
+            }
+            else if (ii == storeIndex)
+            {
+                DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], store, ii, "store");
+            }
+            else
             {
                 while (used[r])
                 {
                     r = Random.Range(1, roomImages.Length);
                 }
                 //print(rooms[ii, 0] + ", " + rooms[ii, 1] + ": " + r);
-                DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], roomImages[r], ii);
+                DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], roomImages[r], ii, "first");
                 used[r] = true;
             }
             
         }
         Destroy(intern);
         Destroy(stapler);
-        //Destroy(fileCabinet);
+        Destroy(fileCabinet);
         Destroy(goal);
+        Destroy(cashier);
     }
 
-    void DrawRoom(GameObject gameRoom, int x, int y, Texture2D roomImage, int roomIndex)
+    void DrawRoom(GameObject gameRoom, int x, int y, Texture2D roomImage, int roomIndex, string style)
     {
         gameRoom.transform.position = new Vector3(x * ROOM_WIDTH - ROOM_WIDTH / 2, y * ROOM_HEIGHT - ROOM_HEIGHT / 2, 0);
         this.walls = gameRoom.transform.GetChild(0).GetComponent<Tilemap>();
@@ -115,7 +130,7 @@ public class DrawLevel : MonoBehaviour
                     }
                     else
                     {
-                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(12, 14));
+                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(12, 14, tiles));
                     }
                 } else if (ii == ROOM_WIDTH - 1)
                 {
@@ -137,7 +152,7 @@ public class DrawLevel : MonoBehaviour
                     }
                     else
                     {
-                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(4, 6));
+                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(4, 6, tiles));
                     }
                 } else if (jj == 0)
                 {
@@ -151,7 +166,7 @@ public class DrawLevel : MonoBehaviour
                     }
                     else
                     {
-                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(0, 2));
+                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(0, 2, tiles));
                     }
                 } else if (jj == ROOM_HEIGHT - 1)
                 {
@@ -165,47 +180,83 @@ public class DrawLevel : MonoBehaviour
                     }
                     else
                     {
-                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(8, 10));
+                        walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(8, 10, tiles));
                     }
                 }
                 else if (roomImage.GetPixel(ii, jj) == Color.black)
                 {
-                    walls.SetTile(new Vector3Int(ii, jj, 0), tiles[46]);
+                    if (style == "first")
+                    {
+                        walls.SetTile(new Vector3Int(ii, jj, 0), tiles[46]);
+                    }
+                    else if (style == "store")
+                    {
+                        walls.SetTile(new Vector3Int(ii, jj, 0), storeTiles[4]);
+                    }
                 }
                 else
                 {
                     if (roomImage.GetPixel(ii, jj) == Color.red)
                     {
-                        AddToWorld(intern, ii, jj);
+                        GameObject newIntern = Instantiate(intern, this.transform.parent, true);
+                        AddToWorld(newIntern, ii, jj, roomImage);
                     }
                     else if (roomImage.GetPixel(ii, jj) == Color.blue)
                     {
-                        AddToWorld(goal, ii, jj);
+                        GameObject newGoal = Instantiate(goal, this.transform.parent, true);
+                        AddToWorld(newGoal, ii, jj, roomImage);
                     } else if (roomImage.GetPixel(ii, jj) == Color.green)
                     {
-                        AddToWorld(fileCabinet, ii, jj);
+                        GameObject newFileCabinet = Instantiate(fileCabinet, this.transform.parent, true);
+                        AddToWorld(newFileCabinet, ii, jj, roomImage);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(1, 1, 0))
                     {
-                        AddToWorld(stapler, ii, jj);
+                        GameObject newStapler = Instantiate(stapler, this.transform.parent, true);
+                        AddToWorld(newStapler, ii, jj, roomImage);
+                    } else if (roomImage.GetPixel(ii, jj) == new Color(0, 1, 1))
+                    {
+                        AddToWorld(LootTables.Pickup(), ii, jj, roomImage);
+                    } else if (roomImage.GetPixel(ii, jj) == new Color(1, 0, 1))
+                    {
+                        GameObject newCashier = Instantiate(cashier, this.transform.parent, true);
+                        AddToWorld(newCashier, ii, jj, roomImage);
                     }
-                    floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(16, 19));
+                    
+                    
+                }
+                if (style == "first")
+                {
+                    floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(16, 19, tiles));
+                }
+                else if (style == "store")
+                {
+                    floor.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(0, 3, storeTiles));
                 }
             }
         }
     }
 
-    private void AddToWorld(GameObject obj, int ii, int jj)
+    private void AddToWorld(GameObject obj, int ii, int jj, Texture2D roomImage)
     {
-        GameObject newObj = Instantiate(obj, this.transform.parent, true);
-        if (newObj.layer == 10)
+        if (obj.layer == 10)
         {
-            enemies.AddLast(newObj);
+            enemies.AddLast(obj);
         }
         Vector3 p = floor.CellToWorld(new Vector3Int(ii, jj, 0));
-        newObj.transform.position = new Vector3(p.x + 0.5f, p.y + 0.5f, p.z - 0.25f);
+        //print(ii + ", " + jj);
+        if ((ii == (ROOM_WIDTH / 2) || jj == (ROOM_HEIGHT / 2 - 1))
+            && roomImage.GetPixel(ii - 1, jj).a == 0
+            && roomImage.GetPixel(ii - 1, jj + 1).a == 0
+            && roomImage.GetPixel(ii, jj + 1).a == 0)
+        {
+            obj.transform.position = new Vector3(p.x, p.y + 1f, p.z - 0.25f);
+        } else
+        {
+            obj.transform.position = new Vector3(p.x + 0.5f, p.y + 0.5f, p.z - 0.25f);
+        }
     }
 
-    Tile GetRandomTile(int lb, int ub)
+    Tile GetRandomTile(int lb, int ub, Tile[] tiles)
     {
         int val = Random.Range(lb, ub + 1);
         return tiles[val];

@@ -5,7 +5,6 @@ using UnityEngine;
 public class LootTables : MonoBehaviour
 {
 
-
     public static GameObject FileCabinet()
     {
         int r = Random.Range(0, 100);
@@ -48,5 +47,21 @@ public class LootTables : MonoBehaviour
         GameObject weapon = Instantiate(GameObject.Find("Buckshot Pickup"), null);
         weapon.GetComponent<WeaponPickup>().SetWeaponName("Buckshot");
         return weapon;
+    }
+
+    public static GameObject Pickup()
+    {
+        int r = Random.Range(0, 2);
+        if (r == 0)
+        {
+            GameObject check = Instantiate(GameObject.Find("Check"));
+            check.GetComponent<Pickup>().SetCost(20);
+            return check;
+        } else
+        {
+            GameObject weapon = Weapon();
+            weapon.GetComponent<WeaponPickup>().SetCost(100);
+            return weapon;
+        }
     }
 }

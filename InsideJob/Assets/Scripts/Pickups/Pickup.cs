@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Pickup : MonoBehaviour
 {
     protected GameObject player;
+    protected GameObject eKey;
+    protected GameObject cost;
+    public UIController ui;
+    public float COST;
+
     // Start is called before the first frame update
-    void Start()
+    protected void Awake()
     {
         player = GameObject.Find("Player");
+        eKey = GameObject.Find("E");
+        cost = GameObject.Find("Cost");
     }
 
     // Update is called once per frame
@@ -21,12 +29,46 @@ public abstract class Pickup : MonoBehaviour
     {
         if (collider.name == "Player") 
         {
+            if (COST != 0)
+            {
+                cost.GetComponent<Text>().enabled = true;
+                cost.GetComponent<Text>().text = "-$" + COST;
+                eKey.transform.parent.localPosition = new Vector3(30, 0, 0);
+            } else
+            {
+                cost.GetComponent<Text>().enabled = false;
+                eKey.transform.parent.localPosition = new Vector3(0, 0, 0);
+            }
+            eKey.GetComponent<Text>().enabled = true;
+            eKey.transform.parent.gameObject.GetComponent<Image>().enabled = true;
             if (Input.GetKey("e"))
             {
+                if (COST != 0)
+                {
+                    player.GetComponent<PlayerController>().AddHealth(-COST);
+                }
+                cost.GetComponent<Text>().enabled = false;
+                eKey.GetComponent<Text>().enabled = false;
+                eKey.transform.parent.gameObject.GetComponent<Image>().enabled = false;
                 EffectOnPickup();
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.name == "Player")
+        {
+            cost.GetComponent<Text>().enabled = false;
+            eKey.GetComponent<Text>().enabled = false;
+            eKey.transform.parent.gameObject.GetComponent<Image>().enabled = false;
+        }
+    }
+
+    public void SetCost(float cost)
+    {
+        this.COST = cost;
     }
 
     protected abstract void EffectOnPickup();

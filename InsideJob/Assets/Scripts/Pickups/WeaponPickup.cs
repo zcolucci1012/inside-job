@@ -10,16 +10,19 @@ public class WeaponPickup : Pickup
 
     protected override void EffectOnPickup()
     {
+        string msg = "You picked up a " + this.weaponName + "!";
+        if (weaponInventory.GetInventory().Count == 1)
+        {
+            msg += "\n(Shift or scroll to switch weapons)";
+        }
         weaponInventory.AddWeapon(this.weaponName);
+        ui.SpawnPickupMessage(msg);
     }
 
-    // Start is called before the first frame update
-    void Start()
+
+    public void SetWeaponName(string weaponName)
     {
-        if (this.weaponName == "")
-        {
-            return;
-        }
+        this.weaponName = weaponName;
         this.weaponInventory = GameObject.Find("Weapons").GetComponent<WeaponInventory>();
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
         this.spriteRenderer.enabled = true;
@@ -30,7 +33,8 @@ public class WeaponPickup : Pickup
             this.weaponName = weapons[r].name;
             this.spriteRenderer.sprite = weapons[r].gameObject.GetComponent<SpriteRenderer>().sprite;
             return;
-        } else if (this.weaponName != "")
+        }
+        else if (this.weaponName != "")
         {
             foreach (Transform weapon in weapons)
             {
@@ -41,12 +45,6 @@ public class WeaponPickup : Pickup
                 }
             }
         }
-        print("name not recognized");   
-    }
-
-    public void SetWeaponName(string weaponName)
-    {
-        this.weaponName = weaponName;
     }
 
     public string GetWeaponName()
@@ -57,9 +55,6 @@ public class WeaponPickup : Pickup
     // Update is called once per frame
     void Update()
     {
-        if (this.weaponName == "")
-        {
-            Start();
-        }
+
     }
 }

@@ -18,9 +18,14 @@ public class PlayerController : EntityWithHealth
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift)
+            || Input.GetKeyDown(KeyCode.RightShift)
+            || Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             weaponInventory.IncWeapon();
+        } else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            weaponInventory.DecWeapon();
         }
     }
 

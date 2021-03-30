@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Particle : MonoBehaviour
+public class Message : MonoBehaviour
 {
-    public float PARTICLE_SPEED = 1f;
-    private int TOTAL_LIFESPAN = 50;
+    public float PARTICLE_SPEED = 0.5f;
+    private int TOTAL_LIFESPAN = 100;
     private int lifespan;
     private bool freeze = true;
-    public Text text;
+    private Text text;
 
     // Start is called before the first frame update
     void Start()
     {
         lifespan = TOTAL_LIFESPAN;
+        text = this.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -26,15 +27,16 @@ public class Particle : MonoBehaviour
         }
         else if (lifespan > 0)
         {
-            this.transform.position = new Vector3(this.transform.position.x + PARTICLE_SPEED,
-                this.transform.position.y,
+            this.transform.position = new Vector3(this.transform.position.x,
+                this.transform.position.y + PARTICLE_SPEED,
                 this.transform.position.z);
             text.color = new Color(text.color.r, text.color.g, text.color.b, (float)lifespan / (float)TOTAL_LIFESPAN);
             lifespan--;
-        } else
+        }
+        else
         {
             Destroy(this.gameObject);
-        }  
+        }
     }
 
     public void ToggleFreeze()

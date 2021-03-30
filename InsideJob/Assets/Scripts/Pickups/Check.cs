@@ -7,6 +7,8 @@ public class Check : Pickup
 
     protected override void EffectOnPickup()
     {
-        player.GetComponent<PlayerController>().AddHealth(LootTables.CheckValues());
+        float value = LootTables.CheckValues();
+        ui.SpawnPickupMessage("You got a check for $" + value);
+        player.GetComponent<PlayerController>().AddHealth(value);
     }
 }

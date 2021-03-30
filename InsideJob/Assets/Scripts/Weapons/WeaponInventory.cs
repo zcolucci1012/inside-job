@@ -9,7 +9,7 @@ public class WeaponInventory : MonoBehaviour
     private Transform activeWeapon;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         weapons = new List<Transform>();
         inventory = new List<Transform>();
@@ -80,7 +80,7 @@ public class WeaponInventory : MonoBehaviour
         {
             if (inventory[ii].Equals(this.activeWeapon))
             {
-                this.activeWeapon = inventory[(ii - 1) % inventory.Count];
+                this.activeWeapon = inventory[(ii + 3) % inventory.Count];
                 break;
             }
         }
@@ -112,5 +112,15 @@ public class WeaponInventory : MonoBehaviour
     public List<Transform> GetWeapons()
     {
         return this.weapons;
+    }
+
+    public List<Transform> GetInventory()
+    {
+        return this.inventory;
+    }
+
+    public Transform GetActiveWeapon()
+    {
+        return this.activeWeapon;
     }
 }

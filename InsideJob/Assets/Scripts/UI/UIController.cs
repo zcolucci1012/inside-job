@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     public Text healthText;
     public GameObject reticle;
     public GameObject particle;
+    public GameObject message;
     
 
     // Start is called before the first frame update
@@ -40,5 +41,13 @@ public class UIController : MonoBehaviour
         newParticle.GetComponent<Text>().text = sign + "$" + Mathf.Abs(val);
         newParticle.GetComponent<Text>().enabled = true;
         newParticle.GetComponent<Text>().color = val < 0 ? Color.red : new Color(0f, 0.7f, 0f);
+    }
+
+    public void SpawnPickupMessage(string msg)
+    {
+        GameObject newMessage = Instantiate(message, this.transform.GetChild(0), true);
+        newMessage.GetComponent<Message>().ToggleFreeze();
+        newMessage.GetComponent<Text>().text = msg;
+        newMessage.GetComponent<Text>().enabled = true; 
     }
 }
