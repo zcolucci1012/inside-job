@@ -14,6 +14,12 @@ public class StaplerController : EnemyController
     private int idleTicks = 0;
     private int IDLE_TICKS = 120;
 
+    protected override void End()
+    {
+        this.playerTransform.GetComponent<PlayerController>().CanMove(true);
+        base.End();
+    }
+
     // Start is called before the first frame update
     new void Start()
     {
