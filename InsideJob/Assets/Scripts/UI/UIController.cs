@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     public GameObject reticle;
     public GameObject particle;
     public GameObject message;
+    public GameObject minimap;
     
 
     // Start is called before the first frame update
@@ -23,12 +24,18 @@ public class UIController : MonoBehaviour
             var texture = mat.mainTexture;
             texture.filterMode = FilterMode.Point;
         }
-        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey("space"))
+        {
+            minimap.SetActive(true);
+        } else
+        {
+            minimap.SetActive(false);
+        }
         reticle.transform.position = Input.mousePosition;
         healthText.text = player.GetComponent<EntityWithHealth>().GetHealth().ToString("c2");
     }

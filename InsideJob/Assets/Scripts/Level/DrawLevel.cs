@@ -25,6 +25,8 @@ public class DrawLevel : MonoBehaviour
     public GameObject goal;
     public GameObject cashier;
 
+    public GameObject minimap;
+
     public Tile[] tiles;
     public Tile[] storeTiles;
     private int[,] rooms;
@@ -35,6 +37,9 @@ public class DrawLevel : MonoBehaviour
     private int[] roomDistances;
     private int furthestRoomDistance = 0;
     private int furthestRoomIndex = -1;
+    private int storeIndex = -1;
+    private int currentRoom = -1;
+    private int[,] adjacentRooms;
     
     
     // Start is called before the first frame update
@@ -53,7 +58,7 @@ public class DrawLevel : MonoBehaviour
             used[ii] = false;
         }
 
-        int storeIndex = Random.Range(1, numRooms);
+        this.storeIndex = Random.Range(1, numRooms);
         while (storeIndex == furthestRoomIndex)
         {
             storeIndex = Random.Range(1, numRooms);
@@ -93,6 +98,7 @@ public class DrawLevel : MonoBehaviour
         Destroy(fileCabinet);
         Destroy(goal);
         Destroy(cashier);
+        
     }
 
     void DrawRoom(GameObject gameRoom, int x, int y, Texture2D roomImage, int roomIndex, string style)
@@ -270,7 +276,14 @@ public class DrawLevel : MonoBehaviour
         roomOver = new bool[numRooms];
         roomVisited = new bool[numRooms];
         roomDistances = new int[numRooms];
-
+        adjacentRooms = new int[numRooms, 4];
+        for (int ii = 0; ii < numRooms; ii++)
+        {
+            adjacentRooms[ii,0] = -1;
+            adjacentRooms[ii,1] = -1;
+            adjacentRooms[ii,2] = -1;
+            adjacentRooms[ii,3] = -1;
+        }
 
         rooms[0, 0] = 0;
         rooms[0, 1] = 0;
@@ -337,6 +350,8 @@ public class DrawLevel : MonoBehaviour
                 doorsLocation[ss, direction] = 1;
                 doorsLocation[ii, oppositeDirection] = 1;
                 roomDistances[ii] = roomDistances[ss] + 1;
+                adjacentRooms[ss, direction] = ii;
+                adjacentRooms[ii, oppositeDirection] = ss;
                 if (roomDistances[ii] > furthestRoomDistance)
                 {
                     furthestRoomDistance = roomDistances[ii];
@@ -425,6 +440,7 @@ public class DrawLevel : MonoBehaviour
 
             if (InRoom(rooms[ii, 0], rooms[ii, 1], playerTransform.position.x, playerTransform.position.y))
             {
+                currentRoom = ii;
                 roomVisited[ii] = true;
                 if (!roomOver[ii])
                 {
@@ -445,7 +461,7 @@ public class DrawLevel : MonoBehaviour
                 }
             }
         }
-        
+        minimap.GetComponent<Minimap>().SetValues(rooms, roomVisited, currentRoom, adjacentRooms, storeIndex, furthestRoomIndex);
     }
 
     bool InRoom(int rx, int ry, float x, float y)

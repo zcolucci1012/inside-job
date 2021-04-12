@@ -2017,8 +2017,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Tutorial time! To move your character around, use W, A, S, D. To aim, use
-    your mouse, and to shoot, left click. E picks up items, and shift/scroll switches
-    weapons.
+    your mouse, and to shoot, left click. E picks up items, shift/scroll switches
+    weapons, and space displays the minimap.
 
     Try it!'
 --- !u!222 &510290466

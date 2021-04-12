@@ -73,8 +73,8 @@ public abstract class Weapon : MonoBehaviour
             
             this.GetComponent<SpriteRenderer>().flipY = x < 0;
 
-            if ((auto && (Input.GetMouseButton(0) || Input.GetKey("space")) && fireTick == FIRE_RATE)
-                || !auto && (Input.GetMouseButton(0) || Input.GetKey("space")) && fireTick == FIRE_RATE)
+            if ((auto && (Input.GetMouseButton(0)) && fireTick == FIRE_RATE)
+                || !auto && (Input.GetMouseButton(0)) && fireTick == FIRE_RATE)
             {
                 player.GetComponent<PlayerController>().AddHealth(-COST);
                 Fire();
