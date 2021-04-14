@@ -11,6 +11,7 @@ public class DrawLevel : MonoBehaviour
     public GameObject sampleRoom;
     private Texture2D[] roomImages;
     public Texture2D endRoom;
+    public Texture2D altEndRoom;
     public Texture2D store;
     public Transform playerTransform;
     private GameObject[] gameRooms;
@@ -24,6 +25,7 @@ public class DrawLevel : MonoBehaviour
     public GameObject fileCabinet;
     public GameObject goal;
     public GameObject cashier;
+    public GameObject CEO;
 
     public GameObject minimap;
 
@@ -75,7 +77,15 @@ public class DrawLevel : MonoBehaviour
             }
             if (ii == furthestRoomIndex)
             {
-                DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], endRoom, ii, "first");
+                if (adjacentRooms[ii, 0] != -1)
+                {
+                    print("yes");
+                    DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], altEndRoom, ii, "first");
+                }
+                else
+                {
+                    DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], endRoom, ii, "first");
+                }
             }
             else if (ii == storeIndex)
             {
@@ -93,11 +103,6 @@ public class DrawLevel : MonoBehaviour
             }
             
         }
-        Destroy(intern);
-        Destroy(stapler);
-        Destroy(fileCabinet);
-        Destroy(goal);
-        Destroy(cashier);
         
     }
 
@@ -226,6 +231,14 @@ public class DrawLevel : MonoBehaviour
                     {
                         GameObject newCashier = Instantiate(cashier, this.transform.parent, true);
                         AddToWorld(newCashier, ii, jj, roomImage);
+                    } else if (roomImage.GetPixel(ii, jj) == new Color(0.2f, 0.2f, 0.2f))
+                    {
+                        print("made ceo");
+                        GameObject newCEO = Instantiate(CEO, this.transform.parent, true);
+                        AddToWorld(newCEO, ii, jj, roomImage);
+                    } else
+                    {
+                        print(roomImage.GetPixel(ii, jj));
                     }
                     
                     
@@ -299,6 +312,7 @@ public class DrawLevel : MonoBehaviour
             
             int dx;
             int dy;
+            //{0, 1, 2, 3} -> {up, right, down, left}
             int direction = Random.Range(0, 4);
             int oppositeDirection;
             if (direction == 0 || direction == 1)

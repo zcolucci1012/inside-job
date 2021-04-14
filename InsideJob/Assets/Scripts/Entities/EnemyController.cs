@@ -7,7 +7,7 @@ public class EnemyController : EntityWithHealth
     public int ROOM_WIDTH = 20;
     public int ROOM_HEIGHT = 16;
     public float REWARD;
-    public Transform playerTransform;
+    protected Transform playerTransform;
     public Sprite[] sprites;
     protected bool seePlayer = false;
     protected bool onScreen = false;
@@ -25,6 +25,7 @@ public class EnemyController : EntityWithHealth
         mask = LayerMask.GetMask("Wall", "Destructable");
         Physics2D.IgnoreLayerCollision(9, 8);
         Physics2D.IgnoreLayerCollision(9, 10);
+        playerTransform = GameObject.Find("Player").transform;
     }
 
     protected override void End()
@@ -45,7 +46,10 @@ public class EnemyController : EntityWithHealth
             this.d,
             mask);
         this.onScreen = this.GetComponent<SpriteRenderer>().isVisible;
-        this.awake = InSameRoom(this.playerTransform.position, this.transform.position);
+        if (!this.awake)
+        {
+            this.awake = InSameRoom(this.playerTransform.position, this.transform.position);
+        }
     }
 
     protected new virtual void FixedUpdate()
@@ -55,10 +59,18 @@ public class EnemyController : EntityWithHealth
 
     public bool InSameRoom(Vector3 e1, Vector3 e2)
     {
+        
         int rx1 = (int)Mathf.Sign(e1.x) * (int)((Mathf.Abs(e1.x) + ROOM_WIDTH / 2) / ROOM_WIDTH);
         int ry1 = (int)Mathf.Sign(e1.y) * (int)((Mathf.Abs(e1.y) + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
         int rx2 = (int)Mathf.Sign(e2.x) * (int)((Mathf.Abs(e2.x) + ROOM_WIDTH / 2) / ROOM_WIDTH);
         int ry2 = (int)Mathf.Sign(e2.y) * (int)((Mathf.Abs(e2.y) + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
+        if ((Mathf.Abs(e1.x) + ROOM_WIDTH / 2) % ROOM_WIDTH < 1.5
+            || (Mathf.Abs(e2.x) + ROOM_WIDTH / 2) % ROOM_WIDTH < 1.5
+            || (Mathf.Abs(e1.y) + ROOM_HEIGHT / 2) % ROOM_HEIGHT < 1.5
+            || (Mathf.Abs(e2.y) + ROOM_HEIGHT / 2) % ROOM_HEIGHT < 1.5)
+        {
+            return false;
+        }
         //print(rx1 + ", " + ry1);
         return (rx1 == rx2) && (ry1 == ry2);
     }
