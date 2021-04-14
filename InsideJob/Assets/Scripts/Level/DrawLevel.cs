@@ -233,14 +233,9 @@ public class DrawLevel : MonoBehaviour
                         AddToWorld(newCashier, ii, jj, roomImage);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(0.2f, 0.2f, 0.2f))
                     {
-                        print("made ceo");
                         GameObject newCEO = Instantiate(CEO, this.transform.parent, true);
                         AddToWorld(newCEO, ii, jj, roomImage);
-                    } else
-                    {
-                        print(roomImage.GetPixel(ii, jj));
                     }
-                    
                     
                 }
                 if (style == "first")
