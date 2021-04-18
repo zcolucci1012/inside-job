@@ -16,9 +16,9 @@ public class FileCabinet : EntityWithHealth
     }
 
     // Start is called before the first frame update
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
         render = this.GetComponent<SpriteRenderer>();
     }
 

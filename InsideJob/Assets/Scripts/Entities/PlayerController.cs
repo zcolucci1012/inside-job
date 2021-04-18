@@ -16,9 +16,9 @@ public class PlayerController : EntityWithHealth
     private int WALK_INTERVAL = 10;
 
     // Start is called before the first frame update
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[0];
     }

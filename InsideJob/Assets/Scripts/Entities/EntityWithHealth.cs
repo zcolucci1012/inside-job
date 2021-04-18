@@ -13,11 +13,11 @@ public abstract class EntityWithHealth : MonoBehaviour
     private int flashTick = -1;
     private bool ended = false;
 
-    // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Awake()
     {
         currentHealth = TOTAL_HEALTH;
     }
+
     // Update is called once per frame
     protected void FixedUpdate()
     {

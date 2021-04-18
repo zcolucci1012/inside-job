@@ -99,7 +99,6 @@ MonoBehaviour:
   ROOM_WIDTH: 20
   ROOM_HEIGHT: 16
   REWARD: 10
-  playerTransform: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 060fc454cdfe025488a5a31173669fb1, type: 3}
   - {fileID: 21300000, guid: 8c4c20e86c593134ca90f5932a4dbf5e, type: 3}

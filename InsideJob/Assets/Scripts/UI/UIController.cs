@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
     public GameObject particle;
     public GameObject message;
     public GameObject minimap;
+    public GameObject bossHealth;
+    public GameObject bossName;
     
 
     // Start is called before the first frame update
@@ -56,5 +58,18 @@ public class UIController : MonoBehaviour
         newMessage.GetComponent<Message>().ToggleFreeze();
         newMessage.GetComponent<Text>().text = msg;
         newMessage.GetComponent<Text>().enabled = true; 
+    }
+
+    public void SetBossHealth(float health, float total, string name)
+    {
+        bossHealth.SetActive(true);
+        bossHealth.GetComponent<Slider>().maxValue = total;
+        bossHealth.GetComponent<Slider>().value = health;
+        bossName.GetComponent<Text>().text = name;
+    }
+
+    public void DisableBossHealth()
+    {
+        bossHealth.SetActive(false);
     }
 }

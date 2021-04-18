@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyController : EntityWithHealth
 {
-    public int ROOM_WIDTH = 20;
-    public int ROOM_HEIGHT = 16;
+    protected int ROOM_WIDTH = Constants.ROOM_WIDTH;
+    protected int ROOM_HEIGHT = Constants.ROOM_HEIGHT;
     public float REWARD;
     protected Transform playerTransform;
     public Sprite[] sprites;
@@ -18,10 +18,9 @@ public class EnemyController : EntityWithHealth
     private int mask;
     protected bool awake = false;
 
-    // Start is called before the first frame update
-    protected new virtual void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         mask = LayerMask.GetMask("Wall", "Destructable");
         Physics2D.IgnoreLayerCollision(9, 8);
         Physics2D.IgnoreLayerCollision(9, 10);
@@ -52,26 +51,37 @@ public class EnemyController : EntityWithHealth
         }
     }
 
-    protected new virtual void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
     public bool InSameRoom(Vector3 e1, Vector3 e2)
     {
-        
-        int rx1 = (int)Mathf.Sign(e1.x) * (int)((Mathf.Abs(e1.x) + ROOM_WIDTH / 2) / ROOM_WIDTH);
-        int ry1 = (int)Mathf.Sign(e1.y) * (int)((Mathf.Abs(e1.y) + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
-        int rx2 = (int)Mathf.Sign(e2.x) * (int)((Mathf.Abs(e2.x) + ROOM_WIDTH / 2) / ROOM_WIDTH);
-        int ry2 = (int)Mathf.Sign(e2.y) * (int)((Mathf.Abs(e2.y) + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
-        if ((Mathf.Abs(e1.x) + ROOM_WIDTH / 2) % ROOM_WIDTH < 1.5
-            || (Mathf.Abs(e2.x) + ROOM_WIDTH / 2) % ROOM_WIDTH < 1.5
-            || (Mathf.Abs(e1.y) + ROOM_HEIGHT / 2) % ROOM_HEIGHT < 1.5
-            || (Mathf.Abs(e2.y) + ROOM_HEIGHT / 2) % ROOM_HEIGHT < 1.5)
+        int rx1 = (int)((e1.x + ROOM_WIDTH / 2) / ROOM_WIDTH);
+        int ry1 = (int)((e1.y + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
+        int rx2 = (int)((e2.x + ROOM_WIDTH / 2) / ROOM_WIDTH);
+        int ry2 = (int)((e2.y + ROOM_HEIGHT / 2) / ROOM_HEIGHT);
+        if (e1.x + ROOM_WIDTH / 2 < 0)
+        {
+            rx1--;
+        }
+        if (e1.y + ROOM_HEIGHT/ 2 < 0)
+        {
+            ry1--;
+        }
+        if (e2.x + ROOM_WIDTH / 2 < 0)
+        {
+            rx2--;
+        }
+        if (e2.y + ROOM_HEIGHT / 2 < 0)
+        {
+            ry2--;
+        }
+        if (e1.x < rx1 * ROOM_WIDTH - ROOM_WIDTH / 2 + 1
+            || e1.x > rx1 * ROOM_WIDTH + ROOM_WIDTH / 2 - 1
+            || e1.y < ry1 * ROOM_HEIGHT - ROOM_HEIGHT / 2 + 1
+            || e1.y > ry1 * ROOM_HEIGHT + ROOM_HEIGHT / 2 - 1)
         {
             return false;
         }
-        //print(rx1 + ", " + ry1);
+        //print(e1.x + ", " + e1.y);
+        //print(rx1 + ", " + ry1 + ", " + e1.x + ", " + e1.y);
         return (rx1 == rx2) && (ry1 == ry2);
     }
 }

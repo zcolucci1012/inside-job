@@ -119,11 +119,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229df69c2c32943499094b7cfd1c943c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TOTAL_HEALTH: 600
+  TOTAL_HEALTH: 1000
   FLASHES: 1
   ROOM_WIDTH: 20
   ROOM_HEIGHT: 16
-  REWARD: 0
-  sprites: []
+  REWARD: 200
+  sprites:
+  - {fileID: 21300000, guid: 1a6dccd9aace34945b8037b60e44faf1, type: 3}
+  - {fileID: 21300000, guid: 775921a8051ea344f9f76c79c1327c0d, type: 3}
+  spawner: {fileID: 937080053250130515, guid: c5a9be4f449786b49bd3aabacdfdcd93, type: 3}
   table: {fileID: 5213671365239744715, guid: 5efc39efe9c56bf4dbd81984b435b0df, type: 3}
-  TABLE_FORCE: 300
+  stapler: {fileID: 5588750962906983932, guid: 3524a3d6917346446bba130c8412bb8f, type: 3}
+  TABLE_FORCE: 350

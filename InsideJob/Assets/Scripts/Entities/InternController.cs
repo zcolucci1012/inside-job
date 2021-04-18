@@ -14,9 +14,9 @@ public class InternController : EnemyController
     private int animTick = 0;
     private bool justSaw = true;
 
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
         attackTick = Random.Range(0, ATTACK_INTERVAL / 2);
         Physics2D.IgnoreLayerCollision(9, 8);
         Physics2D.IgnoreLayerCollision(9, 10);
