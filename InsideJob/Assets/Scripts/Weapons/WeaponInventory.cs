@@ -98,7 +98,11 @@ public class WeaponInventory : MonoBehaviour
         {
             if (inventory.Contains(weapon))
             {
-                weapon.SetParent(GameObject.Find("Player").transform);
+                GameObject player = GameObject.Find("Player");
+                if (player != null)
+                {
+                    weapon.SetParent(player.transform);
+                }
                 if (weapon.Equals(this.activeWeapon))
                 {
                     weapon.GetComponent<Weapon>().SetActive(true);

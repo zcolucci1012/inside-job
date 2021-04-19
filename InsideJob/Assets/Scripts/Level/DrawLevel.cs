@@ -79,7 +79,6 @@ public class DrawLevel : MonoBehaviour
             {
                 if (adjacentRooms[ii, 0] != -1)
                 {
-                    print("yes");
                     DrawRoom(gameRooms[ii], rooms[ii, 0], rooms[ii, 1], altEndRoom, ii, "first");
                 }
                 else

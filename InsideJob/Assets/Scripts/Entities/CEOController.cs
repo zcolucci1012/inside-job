@@ -7,13 +7,14 @@ public class CEOController : EnemyController
     public GameObject spawner;
     public GameObject table;
     public GameObject stapler;
+    public GameObject elevator;
     private bool attacking = false;
     private int attackTick = 0;
     private int r = -1;
     public float TABLE_FORCE = 350f;
     private bool cutscene = true;
     private int cutsceneTicks = 0;
-    private GameObject camera;
+    private new GameObject camera;
     private Vector3[] spawnLocations = new Vector3[4] { new Vector3(-5f, -1f, 0f),
         new Vector3(5f, -1f, 0f), new Vector3(-5f, -6f, 0f), new Vector3(5, -6f, 0f) };
     private Vector3 roomCenter;
@@ -28,16 +29,22 @@ public class CEOController : EnemyController
         this.ui = GameObject.Find("/Canvas").GetComponent<UIController>();
     }
 
-    new void Start()
+    void Start()
     {
-        print(this.transform.position.x);
-        roomCenter.x = ((int)(this.transform.position.x + Constants.ROOM_WIDTH / 2) / Constants.ROOM_WIDTH)
-            * Constants.ROOM_WIDTH;
-        roomCenter.y = ((int)(this.transform.position.y + Constants.ROOM_HEIGHT / 2) / Constants.ROOM_HEIGHT)
-            * Constants.ROOM_HEIGHT;
-        print(roomCenter);
+        int rx = ((int)(this.transform.position.x + Constants.ROOM_WIDTH / 2) / Constants.ROOM_WIDTH);
+        int ry = ((int)(this.transform.position.y + Constants.ROOM_HEIGHT / 2) / Constants.ROOM_HEIGHT);
+        if (this.transform.position.x + Constants.ROOM_WIDTH / 2 < 0)
+        {
+            rx--;
+        }
+        if (this.transform.position.y + Constants.ROOM_HEIGHT / 2 < 0)
+        {
+            ry--;
+        }
+        roomCenter.x = rx * Constants.ROOM_WIDTH;
+        roomCenter.y = ry * Constants.ROOM_HEIGHT;
         spawnLocations = new Vector3[4] { new Vector3(-5f, -5f, 0f) + roomCenter,
-        new Vector3(5f, -5f, 0f) + roomCenter, new Vector3(-5f, 5f, 0f) + roomCenter, new Vector3(5, 5f, 0f) + roomCenter };
+            new Vector3(5f, -5f, 0f) + roomCenter, new Vector3(-5f, 5f, 0f) + roomCenter, new Vector3(5, 5f, 0f) + roomCenter };
     }
 
     new void Update()
@@ -52,6 +59,8 @@ public class CEOController : EnemyController
     protected override void End()
     {
         ui.DisableBossHealth();
+        GameObject newElevator = Instantiate(elevator);
+        newElevator.transform.position = this.roomCenter;
         base.End();
     }
 
@@ -98,7 +107,7 @@ public class CEOController : EnemyController
                     };
                     GameObject spawnTable1 = Instantiate(spawner);
                     spawnTable1.GetComponent<Spawner>().Spawn(table,
-                        new Vector3(5f, 3f, -0.25f) + roomCenter, goLeft);
+                        new Vector3(5f, 2f, -0.25f) + roomCenter, goLeft);
 
                     GameObject spawnTable2 = Instantiate(spawner);
                     spawnTable2.GetComponent<Spawner>().Spawn(table,
@@ -106,7 +115,7 @@ public class CEOController : EnemyController
 
                     GameObject spawnTable3 = Instantiate(spawner);
                     spawnTable3.GetComponent<Spawner>().Spawn(table,
-                        new Vector3(5f, -3f, -0.25f) + roomCenter, goLeft);
+                        new Vector3(5f, -2f, -0.25f) + roomCenter, goLeft);
                 }
                 if (r == 1)
                 {
@@ -138,7 +147,7 @@ public class CEOController : EnemyController
 
                     GameObject spawnTable3 = Instantiate(spawner);
                     spawnTable3.GetComponent<Spawner>().Spawn(table,
-                        new Vector3(0f, 2f, -0.25f) + roomCenter, goDown, flip);
+                        new Vector3(0f, 1.5f, -0.25f) + roomCenter, goDown, flip);
                 }
                 attacking = true;
             }

@@ -8,6 +8,7 @@ public abstract class Weapon : MonoBehaviour
     public float BULLET_FORCE;
     public int FIRE_RATE;
     public bool auto = false;
+    public AudioClip sound;
     protected float x;
     protected float y;
     protected float rad;
@@ -78,6 +79,10 @@ public abstract class Weapon : MonoBehaviour
             {
                 player.GetComponent<PlayerController>().AddHealth(-COST);
                 Fire();
+                if (sound != null)
+                {
+                    AudioSource.PlayClipAtPoint(sound, this.transform.position);
+                }
                 fireTick = 0;
             }
         } else

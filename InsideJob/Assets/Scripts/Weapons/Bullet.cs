@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     public int[] LAYERS_TO_HIT;
     public int DAMAGE;
     private bool canHit = false;
-    private bool sample = false;
 
     private void Awake()
     {
@@ -29,7 +28,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(canHit);
         if (canHit)
         {
             for (int ii = 0; ii < LAYERS_TO_HIT.Length; ii++)

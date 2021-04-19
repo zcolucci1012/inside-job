@@ -8,7 +8,7 @@ public abstract class Pickup : MonoBehaviour
     protected GameObject player;
     protected GameObject eKey;
     protected GameObject cost;
-    public UIController ui;
+    protected UIController ui;
     public float COST;
 
     // Start is called before the first frame update
@@ -17,12 +17,7 @@ public abstract class Pickup : MonoBehaviour
         player = GameObject.Find("Player");
         eKey = GameObject.Find("E");
         cost = GameObject.Find("Cost");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ui = GameObject.Find("/Canvas").GetComponent<UIController>();
     }
 
     private void OnTriggerStay2D(Collider2D collider)

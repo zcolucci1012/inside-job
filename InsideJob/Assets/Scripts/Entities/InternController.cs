@@ -10,6 +10,7 @@ public class InternController : EnemyController
     public float BULLET_FORCE;
     public int THROW_ANIM_LENGTH;
     public float SIGHT_RANGE;
+    public AudioClip sound;
     private int attackTick = 0;
     private int animTick = 0;
     private bool justSaw = true;
@@ -60,6 +61,7 @@ public class InternController : EnemyController
                 newBullet.GetComponent<Rigidbody2D>().AddForce(new Vector3(Mathf.Cos(rad) * BULLET_FORCE, Mathf.Sin(rad) * BULLET_FORCE, 0));
                 attackTick = 0;
                 animTick = THROW_ANIM_LENGTH;
+                AudioSource.PlayClipAtPoint(sound, this.transform.position);
             }
         }
     }

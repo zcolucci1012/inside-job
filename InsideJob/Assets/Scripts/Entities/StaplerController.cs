@@ -5,12 +5,13 @@ using UnityEngine;
 public class StaplerController : EnemyController
 {
     public float SPEED = 5f;
+    public float DAMAGE = 30;
+    public AudioClip sound;
     private bool bite = false;
     private int biteTicks = 0;
     private int BITE_TICKS = 15;
     private int cooldownTicks = 0;
     private int COOLDOWN_TICKS = 30;
-    public float DAMAGE = 30;
     private int idleTicks = 0;
     private int IDLE_TICKS = 120;
 
@@ -99,6 +100,7 @@ public class StaplerController : EnemyController
                 PlayerController player = collider.gameObject.GetComponent<PlayerController>();
                 player.AddHealth(-DAMAGE);
                 player.CanMove(false);
+                AudioSource.PlayClipAtPoint(sound, this.transform.position);
             }
         }
     }
