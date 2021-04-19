@@ -6,6 +6,7 @@ public class BackgroundMusic : MonoBehaviour
 {
     private GameObject[] others;
     private bool notFirst = false;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -24,5 +25,17 @@ public class BackgroundMusic : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void PlayMusic()
+    {
+        if (audioSource.isPlaying) return;
+        audioSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        audioSource.Stop();
     }
 }

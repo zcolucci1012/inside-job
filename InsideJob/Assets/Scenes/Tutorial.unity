@@ -739,7 +739,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0479ae428a7122c468535592f33a65ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 0}
   COST: 0
 --- !u!212 &148952579
 SpriteRenderer:
@@ -1151,6 +1150,7 @@ MonoBehaviour:
   BULLET_FORCE: 400
   FIRE_RATE: 40
   auto: 0
+  sound: {fileID: 8300000, guid: fae016c171f5028459be336f5ad9cc80, type: 3}
 --- !u!212 &226185996
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1819,14 +1819,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.7812412, b: 0.09019608, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f1a84acdb2b0f184098a9a6415ab927c, type: 3}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: 791f877dc055cf34db87600f46ecdc0a, type: 3}
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1837,7 +1837,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ->Yes.
+  m_Text: BACK
 --- !u!222 &425239831
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1900,6 +1900,7 @@ MonoBehaviour:
   BULLET_FORCE: 400
   FIRE_RATE: 20
   auto: 0
+  sound: {fileID: 8300000, guid: 50a6c3b93139ca8419bf06ac613b9c3d, type: 3}
 --- !u!212 &490920107
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2004,11 +2005,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f1a84acdb2b0f184098a9a6415ab927c, type: 3}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 791f877dc055cf34db87600f46ecdc0a, type: 3}
+    m_FontSize: 23
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2747,7 +2748,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5addaab10fd9f6c4aad606695dd84598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 0}
   COST: 0
 --- !u!212 &1134912686
 SpriteRenderer:
@@ -2934,7 +2934,7 @@ GameObject:
   - component: {fileID: 1268987511}
   - component: {fileID: 1268987514}
   m_Layer: 5
-  m_Name: Yes
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2958,7 +2958,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -320}
-  m_SizeDelta: {x: 173.2, y: 64.3}
+  m_SizeDelta: {x: 150, y: 74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1268987511
 MonoBehaviour:
@@ -3001,7 +3001,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1268987514}
-        m_MethodName: Restart
+        m_MethodName: Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3024,13 +3024,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: cb5e65d566c6e0a4ca6f1350cea7ceb0, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268987509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16887617ad52a4698287501da1d82e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3dfe925ab83c07c42ac30dfbeec82f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1419391386
@@ -3248,11 +3248,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f1a84acdb2b0f184098a9a6415ab927c, type: 3}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 791f877dc055cf34db87600f46ecdc0a, type: 3}
+    m_FontSize: 23
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0

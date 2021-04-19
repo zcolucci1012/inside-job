@@ -168,8 +168,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f1a84acdb2b0f184098a9a6415ab927c, type: 3}
-    m_FontSize: 60
+    m_Font: {fileID: 12800000, guid: 791f877dc055cf34db87600f46ecdc0a, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: restart?
+  m_Text: menu?
 --- !u!222 &230307805
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -347,8 +347,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f1a84acdb2b0f184098a9a6415ab927c, type: 3}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 791f877dc055cf34db87600f46ecdc0a, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -424,8 +424,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f1a84acdb2b0f184098a9a6415ab927c, type: 3}
-    m_FontSize: 125
+    m_Font: {fileID: 12800000, guid: 791f877dc055cf34db87600f46ecdc0a, type: 3}
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -567,12 +567,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f1a84acdb2b0f184098a9a6415ab927c, type: 3}
-    m_FontSize: 60
+    m_Font: {fileID: 12800000, guid: 791f877dc055cf34db87600f46ecdc0a, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 100
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 1482730692}
   - component: {fileID: 1482730691}
   m_Layer: 0
-  m_Name: Restart
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1482730689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a16887617ad52a4698287501da1d82e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3dfe925ab83c07c42ac30dfbeec82f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1482730692
@@ -681,7 +681,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1482730691}
-        m_MethodName: Restart
+        m_MethodName: Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
