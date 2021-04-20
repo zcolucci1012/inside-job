@@ -49,7 +49,7 @@ public class DrawLevel : MonoBehaviour
     {
         enemies = new LinkedList<GameObject>();
         roomImages = Resources.LoadAll<Texture2D>("Tiles/Rooms");
-        int numRooms = Random.Range(8, 12);
+        int numRooms = Random.Range(12, 15);
         GenerateMap(numRooms);
         gameRooms = new GameObject[numRooms];
 

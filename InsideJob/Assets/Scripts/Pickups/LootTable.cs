@@ -60,7 +60,7 @@ public class LootTables : MonoBehaviour
         } else
         {
             GameObject weapon = Weapon();
-            weapon.GetComponent<WeaponPickup>().SetCost(100);
+            weapon.GetComponent<WeaponPickup>().SetCost(50);
             return weapon;
         }
     }

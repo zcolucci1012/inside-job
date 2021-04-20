@@ -97,11 +97,11 @@ public class Elevator : MonoBehaviour
                 this.player.SetActive(false);
                 spriteRenderer.sprite = sprites[0];
             }
-            else if (animTicks < 300)
+            else if (animTicks < 400)
             {
                 this.transform.parent.position += new Vector3(0, 0.05f, 0);
             }
-            else if (animTicks < 700) 
+            else 
             {
                 SceneManager.LoadScene("Win");
             }

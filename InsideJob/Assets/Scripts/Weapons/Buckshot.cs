@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Buckshot : Weapon
 {
-    private int PELLETS = 5;
+    private int PELLETS = 4;
 
     protected override void Fire()
     {
