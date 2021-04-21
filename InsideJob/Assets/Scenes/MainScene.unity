@@ -5240,7 +5240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LAYERS_TO_HIT: 0a0000000d0000000f000000
-  DAMAGE: 10
+  DAMAGE: 5
   player: {fileID: 810266704}
 --- !u!50 &1964316029
 Rigidbody2D:
