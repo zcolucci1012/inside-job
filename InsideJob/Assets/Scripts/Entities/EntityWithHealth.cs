@@ -12,10 +12,14 @@ public abstract class EntityWithHealth : MonoBehaviour
     private int FLASH_TICKS = 10;
     private int flashTick = -1;
     private bool ended = false;
+    protected int[] currCell;
+    private int[] prevCell = null;
 
     protected virtual void Awake()
     {
         currentHealth = TOTAL_HEALTH;
+        currCell = new int[2] { (int)this.transform.position.x, (int)this.transform.position.y };
+        GridData.grid[currCell] = this.gameObject.name;
     }
 
     // Update is called once per frame
@@ -43,6 +47,31 @@ public abstract class EntityWithHealth : MonoBehaviour
                 flashRed = false;
             }
         }
+    }
+
+    protected void Update()
+    {
+        currCell = new int[2] { (int)this.transform.position.x, (int)this.transform.position.y };
+        if (transform.position.x < 0)
+        {
+            currCell[0]--;
+        }
+        if (transform.position.y < 0)
+        {
+            currCell[1]--;
+        }
+
+
+        if (prevCell == null || !prevCell.Equals(currCell))
+        {
+            if (prevCell != null)
+            {
+                GridData.grid[prevCell] = "";
+            }
+            GridData.grid[currCell] = this.gameObject.name;
+        }
+
+        prevCell = currCell;
     }
 
     Color GetColor(int tick, int max, int r, int g, int b)
@@ -79,5 +108,10 @@ public abstract class EntityWithHealth : MonoBehaviour
     public float GetHealth()
     {
         return this.currentHealth;
+    }
+
+    public int[] GetCurrCell()
+    {
+        return this.currCell;
     }
 }

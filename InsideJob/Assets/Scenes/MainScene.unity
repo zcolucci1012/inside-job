@@ -1984,8 +1984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dce6a8ad49091c40b67b754a8ffda10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ROOM_WIDTH: 20
-  ROOM_HEIGHT: 16
   sampleRoom: {fileID: 555260906}
   endRoom: {fileID: 2800000, guid: 70e3b9d5223ab6343abcb2de8fd8143c, type: 3}
   altEndRoom: {fileID: 2800000, guid: 82e12f8a4a04da74e91fc80e72adb459, type: 3}

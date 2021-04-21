@@ -5,8 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class DrawLevel : MonoBehaviour
 {
-    public float ROOM_WIDTH;
-    public float ROOM_HEIGHT;
 
     public GameObject sampleRoom;
     private Texture2D[] roomImages;
@@ -102,12 +100,12 @@ public class DrawLevel : MonoBehaviour
             }
             
         }
-        
+        //GridData.PrintGrid();
     }
 
     void DrawRoom(GameObject gameRoom, int x, int y, Texture2D roomImage, int roomIndex, string style)
     {
-        gameRoom.transform.position = new Vector3(x * ROOM_WIDTH - ROOM_WIDTH / 2, y * ROOM_HEIGHT - ROOM_HEIGHT / 2, 0);
+        gameRoom.transform.position = new Vector3(x * Constants.ROOM_WIDTH - Constants.ROOM_WIDTH / 2, y * Constants.ROOM_HEIGHT - Constants.ROOM_HEIGHT / 2, 0);
         this.walls = gameRoom.transform.GetChild(0).GetComponent<Tilemap>();
         this.floor = gameRoom.transform.GetChild(1).GetComponent<Tilemap>();
         Transform doors = gameRoom.transform.GetChild(2);
@@ -116,9 +114,9 @@ public class DrawLevel : MonoBehaviour
         Tilemap downDoors = doors.GetChild(2).GetComponent<Tilemap>();
         Tilemap leftDoors = doors.GetChild(3).GetComponent<Tilemap>();
 
-        for (int ii = 0; ii < ROOM_WIDTH; ii++)
+        for (int ii = 0; ii < Constants.ROOM_WIDTH; ii++)
         {
-            for (int jj = 0; jj < ROOM_HEIGHT; jj++)
+            for (int jj = 0; jj < Constants.ROOM_HEIGHT; jj++)
             {
                 if (ii == 0)
                 {
@@ -126,15 +124,15 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), tiles[15]);
                     }
-                    else if (jj == ROOM_HEIGHT - 1)
+                    else if (jj == Constants.ROOM_HEIGHT - 1)
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), tiles[11]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2 - 1 && doorsLocation[roomIndex, 3] == 1)
+                    else if (jj == Constants.ROOM_HEIGHT / 2 - 1 && doorsLocation[roomIndex, 3] == 1)
                     {
                         leftDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[24]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2  && doorsLocation[roomIndex, 3] == 1)
+                    else if (jj == Constants.ROOM_HEIGHT / 2  && doorsLocation[roomIndex, 3] == 1)
                     {
                         leftDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[25]);
                     }
@@ -142,21 +140,22 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(12, 14, tiles));
                     }
-                } else if (ii == ROOM_WIDTH - 1)
+                    AddToGrid(x, y, ii, jj, "Wall");
+                } else if (ii == Constants.ROOM_WIDTH - 1)
                 {
                     if (jj == 0)
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), tiles[3]);
                     }
-                    else if (jj == ROOM_HEIGHT - 1)
+                    else if (jj == Constants.ROOM_HEIGHT - 1)
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), tiles[7]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2 - 1&& doorsLocation[roomIndex, 1] == 1)
+                    else if (jj == Constants.ROOM_HEIGHT / 2 - 1&& doorsLocation[roomIndex, 1] == 1)
                     {
                         rightDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[21]);
                     }
-                    else if (jj == ROOM_HEIGHT / 2 && doorsLocation[roomIndex, 1] == 1)
+                    else if (jj == Constants.ROOM_HEIGHT / 2 && doorsLocation[roomIndex, 1] == 1)
                     {
                         rightDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[20]);
                     }
@@ -164,13 +163,14 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(4, 6, tiles));
                     }
+                    AddToGrid(x, y, ii, jj, "Wall");
                 } else if (jj == 0)
                 {
-                    if (ii == ROOM_WIDTH / 2 - 1&& doorsLocation[roomIndex, 2] == 1)
+                    if (ii == Constants.ROOM_WIDTH / 2 - 1&& doorsLocation[roomIndex, 2] == 1)
                     {
                         downDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[27]);
                     }
-                    else if (ii == ROOM_WIDTH / 2 && doorsLocation[roomIndex, 2] == 1)
+                    else if (ii == Constants.ROOM_WIDTH / 2 && doorsLocation[roomIndex, 2] == 1)
                     {
                         downDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[26]);
                     }
@@ -178,13 +178,14 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(0, 2, tiles));
                     }
-                } else if (jj == ROOM_HEIGHT - 1)
+                    AddToGrid(x, y, ii, jj, "Wall");
+                } else if (jj == Constants.ROOM_HEIGHT - 1)
                 {
-                    if (ii == ROOM_WIDTH / 2 - 1 && doorsLocation[roomIndex, 0] == 1)
+                    if (ii == Constants.ROOM_WIDTH / 2 - 1 && doorsLocation[roomIndex, 0] == 1)
                     {
                         upDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[22]);
                     }
-                    else if (ii == ROOM_WIDTH / 2 && doorsLocation[roomIndex, 0] == 1)
+                    else if (ii == Constants.ROOM_WIDTH / 2 && doorsLocation[roomIndex, 0] == 1)
                     {
                         upDoors.SetTile(new Vector3Int(ii, jj, 0), tiles[23]);
                     }
@@ -192,6 +193,7 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), GetRandomTile(8, 10, tiles));
                     }
+                    AddToGrid(x, y, ii, jj, "Wall");
                 }
                 else if (roomImage.GetPixel(ii, jj) == Color.black)
                 {
@@ -203,6 +205,7 @@ public class DrawLevel : MonoBehaviour
                     {
                         walls.SetTile(new Vector3Int(ii, jj, 0), storeTiles[4]);
                     }
+                    AddToGrid(x, y, ii, jj, "Wall");
                 }
                 else
                 {
@@ -249,6 +252,11 @@ public class DrawLevel : MonoBehaviour
         }
     }
 
+    private void AddToGrid(int x, int y, int ii, int jj, string name)
+    {
+        GridData.grid.Add(new int[2] { x * Constants.ROOM_WIDTH - Constants.ROOM_WIDTH / 2 + ii, y * Constants.ROOM_HEIGHT - Constants.ROOM_HEIGHT / 2 + jj }, name);
+    }
+
     private void AddToWorld(GameObject obj, int ii, int jj, Texture2D roomImage)
     {
         if (obj.layer == 10)
@@ -257,7 +265,7 @@ public class DrawLevel : MonoBehaviour
         }
         Vector3 p = floor.CellToWorld(new Vector3Int(ii, jj, 0));
         //print(ii + ", " + jj);
-        if ((ii == (ROOM_WIDTH / 2) || jj == (ROOM_HEIGHT / 2 - 1))
+        if ((ii == (Constants.ROOM_WIDTH / 2) || jj == (Constants.ROOM_HEIGHT / 2 - 1))
             && roomImage.GetPixel(ii - 1, jj).a == 0
             && roomImage.GetPixel(ii - 1, jj + 1).a == 0
             && roomImage.GetPixel(ii, jj + 1).a == 0)
@@ -474,10 +482,10 @@ public class DrawLevel : MonoBehaviour
 
     bool InRoom(int rx, int ry, float x, float y)
     {
-        return (x <= rx * ROOM_WIDTH + ROOM_WIDTH / 2 - 1
-            && x > rx * ROOM_WIDTH - ROOM_WIDTH / 2 + 1
-            && y <= ry * ROOM_HEIGHT + ROOM_HEIGHT / 2 - 1
-            && y > ry * ROOM_HEIGHT - ROOM_HEIGHT / 2 + 1); 
+        return (x <= rx * Constants.ROOM_WIDTH + Constants.ROOM_WIDTH / 2 - 1
+            && x > rx * Constants.ROOM_WIDTH - Constants.ROOM_WIDTH / 2 + 1
+            && y <= ry * Constants.ROOM_HEIGHT + Constants.ROOM_HEIGHT / 2 - 1
+            && y > ry * Constants.ROOM_HEIGHT - Constants.ROOM_HEIGHT / 2 + 1); 
     }
 
 }

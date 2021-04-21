@@ -23,8 +23,9 @@ public class PlayerController : EntityWithHealth
         spriteRenderer.sprite = sprites[0];
     }
 
-    void Update()
+    new void Update()
     {
+        base.Update();
         if (Input.GetKeyDown(KeyCode.LeftShift)
             || Input.GetKeyDown(KeyCode.RightShift)
             || Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -33,6 +34,11 @@ public class PlayerController : EntityWithHealth
         } else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             weaponInventory.DecWeapon();
+        }
+
+        if (Input.GetKeyDown("j"))
+        {
+            GridData.PrintGrid();
         }
 
         if (Input.mousePosition.x < Screen.width / 2)

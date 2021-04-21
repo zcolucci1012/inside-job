@@ -34,8 +34,9 @@ public class EnemyController : EntityWithHealth
     }
 
     // Update is called once per frame
-    protected virtual void Update()
+    protected new void Update()
     {
+        base.Update();
         this.ex = playerTransform.position.x - this.transform.position.x;
         this.ey = playerTransform.position.y - this.transform.position.y;
         this.d = Mathf.Sqrt(Mathf.Pow(ex, 2) + Mathf.Pow(ey, 2));
