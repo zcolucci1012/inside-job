@@ -85,7 +85,7 @@ public class WeaponInventory : MonoBehaviour
         {
             if (inventory[ii].Equals(this.activeWeapon))
             {
-                this.activeWeapon = inventory[(ii + 3) % inventory.Count];
+                this.activeWeapon = inventory[(ii + inventory.Count - 1) % inventory.Count];
                 break;
             }
         }

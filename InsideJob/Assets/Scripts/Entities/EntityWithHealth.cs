@@ -57,9 +57,9 @@ public abstract class EntityWithHealth : MonoBehaviour
     {
         if (FLASHES)
         {
-            flashRed = health <= -10f;
-            flashGreen = health >= 10f;
-            if (Mathf.Abs(health) >= 10f)
+            flashRed = health <= -5f;
+            flashGreen = health >= 5f;
+            if (Mathf.Abs(health) >= 5f)
             {
 
                 flashTick = FLASH_TICKS;

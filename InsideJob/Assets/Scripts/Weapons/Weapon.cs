@@ -9,6 +9,7 @@ public abstract class Weapon : MonoBehaviour
     public int FIRE_RATE;
     public bool auto = false;
     public AudioClip sound;
+    public float SHOP_COST;
     protected float x;
     protected float y;
     protected float rad;

@@ -44,8 +44,17 @@ public class LootTables : MonoBehaviour
 
     public static GameObject Weapon()
     {
-        GameObject weapon = Instantiate(GameObject.Find("Buckshot Pickup"), null);
-        weapon.GetComponent<WeaponPickup>().SetWeaponName("Buckshot");
+        GameObject weapon;
+        int r = Random.Range(0, 100);
+        if (r < 50)
+        {
+            weapon = Instantiate(GameObject.Find("Buckshot Pickup"), null);
+            weapon.GetComponent<WeaponPickup>().SetWeaponName("Buckshot");
+        } else
+        {
+            weapon = Instantiate(GameObject.Find("Pumpstock Pickup"), null);
+            weapon.GetComponent<WeaponPickup>().SetWeaponName("Pumpstock");
+        }
         return weapon;
     }
 
