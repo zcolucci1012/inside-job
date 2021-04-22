@@ -131,8 +131,8 @@ public class StaplerController : EnemyController
                     || newCost < costSoFar[next])
                 {
                     costSoFar[next] = newCost;
-                    float priority = newCost; //+ Vector2.Distance(this.playerTransform.position,
-                        //new Vector2(next.gridPos[0], next.gridPos[1]));
+                    float priority = newCost + Vector2.Distance(this.playerTransform.position,
+                        new Vector2(next.gridPos[0], next.gridPos[1]));
                     //print("queing " + next.gridPos[0] + ", " + next.gridPos[1] + ", " + next.name + ": " + priority);
                     pq.Enqueue(next, priority);
                     cameFrom[next] = current;
@@ -143,10 +143,17 @@ public class StaplerController : EnemyController
         //Destroy(this.gameObject);
 
         Node curr = goal;
-        while (cameFrom[curr] != start)
+        try
         {
-            curr = cameFrom[curr];
+            while (cameFrom[curr] != start)
+            {
+                curr = cameFrom[curr];
+            }
+        } catch (KeyNotFoundException e)
+        {
+            return new Vector2(0, 0);
         }
+        
 
         int[] direction = new int[2] { curr.gridPos[0] - start.gridPos[0],
             curr.gridPos[1] - start.gridPos[1] };

@@ -102,7 +102,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ee0381e905677644199650a56832405d, type: 3}
   - {fileID: 21300000, guid: d5a5f362ee5e6484bbcbf10bc54cbe8d, type: 3}
   - {fileID: 21300000, guid: 59aaf5dda2475aa4090ba2c61b1e5ea8, type: 3}
-  SPEED: 3
+  SPEED: 4
   DAMAGE: 30
   sound: {fileID: 8300000, guid: 4c5dabc600ade904c9e721a2b25bfed7, type: 3}
 --- !u!61 &5588750962906983920
