@@ -61,7 +61,8 @@ public class InternController : EnemyController
                 newBullet.GetComponent<Rigidbody2D>().AddForce(new Vector3(Mathf.Cos(rad) * BULLET_FORCE, Mathf.Sin(rad) * BULLET_FORCE, 0));
                 attackTick = 0;
                 animTick = THROW_ANIM_LENGTH;
-                AudioSource.PlayClipAtPoint(sound, this.transform.position);
+
+                AudioSource.PlayClipAtPoint(sound, this.playerTransform.position, 1f);
             }
         }
     }

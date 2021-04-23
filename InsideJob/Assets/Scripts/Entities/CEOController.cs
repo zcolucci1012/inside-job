@@ -11,7 +11,7 @@ public class CEOController : EnemyController
     private bool attacking = false;
     private int attackTick = 0;
     private int r = -1;
-    public float TABLE_FORCE = 350f;
+    public float TABLE_FORCE = 400f;
     private bool cutscene = true;
     private int cutsceneTicks = 0;
     private new GameObject camera;
@@ -155,39 +155,39 @@ public class CEOController : EnemyController
             {
                 if (r == 0)
                 {
-                    if (attackTick > 200)
+                    if (attackTick > 150)
                     {
                         attackTick = 0;
                         attacking = false;
                         this.GetComponent<SpriteRenderer>().sprite = sprites[0];
                     }
-                    if (attackTick > 150)
+                    if (attackTick > 100)
                     {
                         this.GetComponent<SpriteRenderer>().sprite = sprites[1];
                     }
                 }
                 if (r == 1)
                 {
-                    if (attackTick > 200)
+                    if (attackTick > 150)
                     {
                         attackTick = 0;
                         attacking = false;
                         this.GetComponent<SpriteRenderer>().sprite = sprites[0];
                     }
-                    if (attackTick > 150)
+                    if (attackTick > 100)
                     {
                         this.GetComponent<SpriteRenderer>().sprite = sprites[1];
                     }
                 }
                 if (r == 2)
                 {
-                    if (attackTick > 200)
+                    if (attackTick > 150)
                     {
                         attackTick = 0;
                         attacking = false;
                         this.GetComponent<SpriteRenderer>().sprite = sprites[0];
                     }
-                    if (attackTick > 150)
+                    if (attackTick > 100)
                     {
                         this.GetComponent<SpriteRenderer>().sprite = sprites[1];
                     }

@@ -101,12 +101,17 @@ public class StaplerController : EnemyController
         Node start = new Node(this.currCell, "Stapler(Clone)");
         //print("start: " + this.currCell[0] + ", " + this.currCell[1]);
         Node goal = new Node(playerTransform.gameObject.GetComponent<EntityWithHealth>().GetCurrCell(), "Player");
+        if (start.gridPos[0] == goal.gridPos[0]
+            && start.gridPos[1] == goal.gridPos[1])
+        {
+            Vector2 dir = ((this.playerTransform.position - this.transform.position).normalized) * SPEED;
+            return dir;
+        }
         pq.Enqueue(start, 0f);
         Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node>(new SameNode());
         Dictionary<Node, float> costSoFar = new Dictionary<Node, float>(new SameNode());
         cameFrom[start] = null;
         costSoFar[start] = 0;
-
 
         while (pq.Count != 0)
         {
@@ -115,7 +120,6 @@ public class StaplerController : EnemyController
             if (current.gridPos[0] == goal.gridPos[0]
                 && current.gridPos[1] == goal.gridPos[1])
             {
-                print("here");
                 break;
             }
 
@@ -149,7 +153,7 @@ public class StaplerController : EnemyController
             {
                 curr = cameFrom[curr];
             }
-        } catch (KeyNotFoundException e)
+        } catch (KeyNotFoundException)
         {
             return new Vector2(0, 0);
         }
@@ -163,7 +167,6 @@ public class StaplerController : EnemyController
             velocity = new Vector2(direction[0] * SPEED, direction[1] * SPEED);
         } else
         {
-            print("here");
             Vector2 center = new Vector2(this.currCell[0] + 0.5f, this.currCell[1] + 0.5f);
             if (direction[0] == 0)
             {
@@ -238,7 +241,6 @@ public class StaplerController : EnemyController
     {
         if (collision.gameObject.layer != LayerMask.NameToLayer("Player"))
         {
-            print("name: " + collision.gameObject.name);
             this.colliding = true;
         }
     }

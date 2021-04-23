@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229df69c2c32943499094b7cfd1c943c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TOTAL_HEALTH: 1000
+  TOTAL_HEALTH: 1200
   FLASHES: 1
   REWARD: 200
   sprites:
@@ -130,4 +130,4 @@ MonoBehaviour:
   stapler: {fileID: 5588750962906983932, guid: 3524a3d6917346446bba130c8412bb8f, type: 3}
   elevator: {fileID: 7198965639090765188, guid: 79e532fb2a4cdd242b1e4781d2433367,
     type: 3}
-  TABLE_FORCE: 350
+  TABLE_FORCE: 400
