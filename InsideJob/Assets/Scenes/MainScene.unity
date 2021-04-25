@@ -702,8 +702,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43a2330e2af0ab443871e2e164277e95, type: 2}
   - {fileID: 11400000, guid: 04db28b88e2205946be0999538022b9c, type: 2}
   - {fileID: 11400000, guid: 7b6f9067ee946f04da4b50ab38bd61aa, type: 2}
-  ROOM_WIDTH: 20
-  ROOM_HEIGHT: 16
   direction: 1
 --- !u!1 &427939199
 GameObject:
@@ -1924,8 +1922,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43a2330e2af0ab443871e2e164277e95, type: 2}
   - {fileID: 11400000, guid: 04db28b88e2205946be0999538022b9c, type: 2}
   - {fileID: 11400000, guid: 7b6f9067ee946f04da4b50ab38bd61aa, type: 2}
-  ROOM_WIDTH: 20
-  ROOM_HEIGHT: 16
   direction: 0
 --- !u!1 &720294011
 GameObject:
@@ -1996,6 +1992,8 @@ MonoBehaviour:
   goal: {fileID: 4509997697336298980, guid: 17da673a724403d4e974c51c852d067c, type: 3}
   cashier: {fileID: 7889881626863565945, guid: 1c9c9c7470acb1044815d5ea8b62c79b, type: 3}
   CEO: {fileID: 5473759905913616817, guid: ab5ec7e9f69eef74b9ec72875f00cb46, type: 3}
+  marketer: {fileID: 4401363667206612242, guid: d9bea02b0a5d0484084f4183e84a7c46,
+    type: 3}
   minimap: {fileID: 778890612}
   tiles:
   - {fileID: 11400000, guid: ae55c4855b832734da98b34b46f3e51f, type: 2}
@@ -3103,8 +3101,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43a2330e2af0ab443871e2e164277e95, type: 2}
   - {fileID: 11400000, guid: 04db28b88e2205946be0999538022b9c, type: 2}
   - {fileID: 11400000, guid: 7b6f9067ee946f04da4b50ab38bd61aa, type: 2}
-  ROOM_WIDTH: 20
-  ROOM_HEIGHT: 16
   direction: 2
 --- !u!1 &921045671
 GameObject:
@@ -4715,8 +4711,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43a2330e2af0ab443871e2e164277e95, type: 2}
   - {fileID: 11400000, guid: 04db28b88e2205946be0999538022b9c, type: 2}
   - {fileID: 11400000, guid: 7b6f9067ee946f04da4b50ab38bd61aa, type: 2}
-  ROOM_WIDTH: 20
-  ROOM_HEIGHT: 16
   direction: 3
 --- !u!1 &1858231777
 GameObject:
