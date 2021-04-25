@@ -11,15 +11,16 @@ public class Minimap : MonoBehaviour
     private int[,] adjacentRooms;
     private int shopIndex;
     private int endIndex;
+    private string[] roomSize;
     public GameObject square;
     public GameObject shopIcon;
     public GameObject bossIcon;
     private GameObject[] roomSquares;
     private bool initialized = false;
-    private float roomSize = 0;
+    private float squareSize = 0;
 
 
-    public void SetValues(int[,] rooms, bool[] roomVisited, int currentRoom, int[,] adjacentRooms, int shopIndex, int endIndex)
+    public void SetValues(int[,] rooms, bool[] roomVisited, int currentRoom, int[,] adjacentRooms, int shopIndex, int endIndex, string[] roomSize)
     {
         this.rooms = rooms;
         this.roomVisited = roomVisited;
@@ -27,12 +28,13 @@ public class Minimap : MonoBehaviour
         this.adjacentRooms = adjacentRooms;
         this.shopIndex = shopIndex;
         this.endIndex = endIndex;
+        this.roomSize = roomSize;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        roomSize = ((RectTransform)square.transform).rect.width;
+        squareSize = ((RectTransform)square.transform).rect.width;
     }
 
     // Update is called once per frame
@@ -46,9 +48,14 @@ public class Minimap : MonoBehaviour
                 for (int ii = 0; ii < rooms.GetLength(0); ii++)
                 {
                     GameObject newSquare = Instantiate(square, this.transform, true);
-                    float x = (rooms[ii, 0] - rooms[currentRoom, 0]) * (roomSize + 10); 
-                    float y = (rooms[ii, 1] - rooms[currentRoom, 1]) * (roomSize + 10);
+                    float x = (rooms[ii, 0] - rooms[currentRoom, 0]) * (squareSize + 10); 
+                    float y = (rooms[ii, 1] - rooms[currentRoom, 1]) * (squareSize + 10);
                     newSquare.transform.localPosition = new Vector3(x, y, newSquare.transform.position.z);
+                    if (roomSize[ii] == "big")
+                    {   
+                        newSquare.transform.localScale *= (squareSize * 2 + 10) / squareSize;
+                        newSquare.transform.localPosition += new Vector3(squareSize / 2 + 10, squareSize / 2 + 10);
+                    }
 
                     if (ii == shopIndex)
                     {
@@ -94,9 +101,18 @@ public class Minimap : MonoBehaviour
                         roomSquares[ii].GetComponent<Image>().color = new Color32(150, 150, 150, 150);
                     }
 
-                    float x = (rooms[ii, 0] - rooms[currentRoom, 0]) * (roomSize + 10);
-                    float y = (rooms[ii, 1] - rooms[currentRoom, 1]) * (roomSize + 10);
+                    float x = (rooms[ii, 0] - rooms[currentRoom, 0]) * (squareSize + 10);
+                    float y = (rooms[ii, 1] - rooms[currentRoom, 1]) * (squareSize + 10);
+                    if (roomSize[this.currentRoom] == "big")
+                    {
+                        x -= squareSize / 2 + 5;
+                        y -= squareSize / 2 + 5;
+                    }
                     roomSquares[ii].transform.localPosition = new Vector3(x, y, roomSquares[ii].transform.position.z);
+                    if (roomSize[ii] == "big")
+                    {
+                        roomSquares[ii].transform.localPosition += new Vector3(squareSize / 2 + 5, squareSize / 2 + 5);
+                    }
 
 
                     if (roomVisited[ii])
@@ -105,7 +121,7 @@ public class Minimap : MonoBehaviour
                     }
                     else
                     {
-                        for (int jj = 0; jj < 4; jj++)
+                        for (int jj = 0; jj < 8; jj++)
                         {
                             if (adjacentRooms[ii, jj] != -1 && roomVisited[adjacentRooms[ii, jj]])
                             {
