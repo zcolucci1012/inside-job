@@ -52,6 +52,7 @@ public class FileCabinet : EntityWithHealth
                 {
                     pickup.transform.position = this.transform.position;
                 }
+                GridData.grid[currCell] = "";
                 Destroy(this.gameObject);
             }
         }

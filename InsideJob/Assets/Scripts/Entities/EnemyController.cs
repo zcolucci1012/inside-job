@@ -30,6 +30,7 @@ public class EnemyController : EntityWithHealth
     protected override void End()
     {
         playerTransform.gameObject.GetComponent<PlayerController>().AddHealth(REWARD);
+        GridData.grid[currCell] = "";
         Destroy(this.gameObject);
     }
 
@@ -48,7 +49,7 @@ public class EnemyController : EntityWithHealth
         this.onScreen = this.GetComponent<SpriteRenderer>().isVisible;
         if (!this.awake)
         {
-            this.awake = InSameRoom(this.playerTransform.position, this.transform.position);
+            this.awake = (InSameRoom(this.playerTransform.position, this.transform.position) || this.onScreen);
         }
     }
 

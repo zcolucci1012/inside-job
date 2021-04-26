@@ -28,6 +28,7 @@ public class DrawLevel : MonoBehaviour
     public GameObject marketer;
 
     public GameObject minimap;
+    public AudioClip roomOverSound;
 
     public Tile[] tiles;
     public Tile[] storeTiles;
@@ -414,35 +415,35 @@ public class DrawLevel : MonoBehaviour
                     if (roomImage.GetPixel(ii, jj) == Color.red)
                     {
                         GameObject newIntern = Instantiate(intern, this.transform.parent, true);
-                        AddToWorld(newIntern, ii, jj, roomImage);
+                        AddToWorld(newIntern, ii, jj, roomImage, width, height);
                     }
                     else if (roomImage.GetPixel(ii, jj) == Color.blue)
                     {
                         GameObject newGoal = Instantiate(goal, this.transform.parent, true);
-                        AddToWorld(newGoal, ii, jj, roomImage);
+                        AddToWorld(newGoal, ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == Color.green)
                     {
                         GameObject newFileCabinet = Instantiate(fileCabinet, this.transform.parent, true);
-                        AddToWorld(newFileCabinet, ii, jj, roomImage);
+                        AddToWorld(newFileCabinet, ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(1, 1, 0))
                     {
                         GameObject newStapler = Instantiate(stapler, this.transform.parent, true);
-                        AddToWorld(newStapler, ii, jj, roomImage);
+                        AddToWorld(newStapler, ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(0, 1, 1))
                     {
-                        AddToWorld(LootTables.Pickup(), ii, jj, roomImage);
+                        AddToWorld(LootTables.Pickup(), ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(1, 0, 1))
                     {
                         GameObject newCashier = Instantiate(cashier, this.transform.parent, true);
-                        AddToWorld(newCashier, ii, jj, roomImage);
+                        AddToWorld(newCashier, ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(0.2f, 0.2f, 0.2f))
                     {
                         GameObject newCEO = Instantiate(CEO, this.transform.parent, true);
-                        AddToWorld(newCEO, ii, jj, roomImage);
+                        AddToWorld(newCEO, ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(0, 0.8f, 0.8f))
                     {
                         GameObject newMarketer = Instantiate(marketer, this.transform.parent, true);
-                        AddToWorld(newMarketer, ii, jj, roomImage);
+                        AddToWorld(newMarketer, ii, jj, roomImage, width, height);
                     }
                     
                 }
@@ -464,7 +465,7 @@ public class DrawLevel : MonoBehaviour
             y * Constants.ROOM_HEIGHT - Constants.ROOM_HEIGHT / 2 + jj }, name);
     }
 
-    private void AddToWorld(GameObject obj, int ii, int jj, Texture2D roomImage)
+    private void AddToWorld(GameObject obj, int ii, int jj, Texture2D roomImage, int width, int height)
     {
         if (obj.layer == 10)
         {
@@ -472,7 +473,7 @@ public class DrawLevel : MonoBehaviour
         }
         Vector3 p = floor.CellToWorld(new Vector3Int(ii, jj, 0));
         //print(ii + ", " + jj);
-        if ((ii == (Constants.ROOM_WIDTH / 2) || jj == (Constants.ROOM_HEIGHT / 2 - 1))
+        if ((ii == (width / 2) || jj == (height / 2 - 1))
             && roomImage.GetPixel(ii - 1, jj).a == 0
             && roomImage.GetPixel(ii - 1, jj + 1).a == 0
             && roomImage.GetPixel(ii, jj + 1).a == 0)
@@ -871,13 +872,12 @@ public class DrawLevel : MonoBehaviour
                             {
                                 if(adjacentRooms[otherRoom, kk] == ii)
                                 {
-                                    //print("opened door " + kk + " in room " + otherRoom + " at " +
-                                    //    rooms[otherRoom, 0] + ", " + rooms[otherRoom, 1]);
                                     doorsOpen[otherRoom, kk] = 1;
                                 }
                             }
                         }
                     }
+                    AudioSource.PlayClipAtPoint(roomOverSound, this.playerTransform.position);
                 }
                 doorsOpen[ii, 0] = 1;
                 doorsOpen[ii, 1] = 1;

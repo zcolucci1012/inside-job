@@ -19,6 +19,7 @@ public class MarketerController : EnemyController
     private bool justSaw = true;
     private bool throwing = false;
     private Func<int, Vector2> path;
+    private int sign = 1;
 
     new void Awake()
     {
@@ -68,6 +69,7 @@ public class MarketerController : EnemyController
                 throwing = true;
                 attackTick = 0;
                 animTick = THROW_ANIM_LENGTH;
+                sign = -sign;
 
                 AudioSource.PlayClipAtPoint(sound, this.playerTransform.position, 1f);
             }
@@ -109,7 +111,7 @@ public class MarketerController : EnemyController
         {
             if (this.newBullet != null)
             {
-                this.newBullet.transform.position = path(throwTick);
+                this.newBullet.transform.position = path(sign * throwTick);
                 this.newBullet.transform.eulerAngles += new Vector3(0, 0, 20);
                 throwTick++;
 

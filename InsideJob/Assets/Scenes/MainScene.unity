@@ -250,7 +250,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91075086
 GameObject:
@@ -1995,6 +1995,7 @@ MonoBehaviour:
   marketer: {fileID: 4401363667206612242, guid: d9bea02b0a5d0484084f4183e84a7c46,
     type: 3}
   minimap: {fileID: 778890612}
+  roomOverSound: {fileID: 8300000, guid: 8ea5fdd3555d2df4aa6f540b7f893e6e, type: 3}
   tiles:
   - {fileID: 11400000, guid: ae55c4855b832734da98b34b46f3e51f, type: 2}
   - {fileID: 11400000, guid: 9401f7fdc2fcd664488e2f83e60f5e74, type: 2}
@@ -2415,7 +2416,7 @@ Transform:
   - {fileID: 1305084712}
   - {fileID: 868116582}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &810266704
 GameObject:
@@ -2539,12 +2540,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810266704}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.25}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -512, y: -384, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1916921652}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &810266709
 MonoBehaviour:
@@ -3220,7 +3221,7 @@ Transform:
   - {fileID: 1959643431}
   - {fileID: 703809352}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1034589747
 GameObject:
@@ -4918,6 +4919,7 @@ RectTransform:
   - {fileID: 1868145005}
   - {fileID: 778890613}
   - {fileID: 786827321}
+  - {fileID: 810266708}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
