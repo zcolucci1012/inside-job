@@ -6,25 +6,23 @@ public class CameraController : MonoBehaviour
 {
     public Transform playerTransform;
     private bool inCutscene = false;
+    public float cameraSpeed = 0.01f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.transform.position = playerTransform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Camera camera = this.GetComponent<Camera>();
-        float size = camera.orthographicSize;
         if (!inCutscene)
         {
-            this.transform.position = new Vector3(playerTransform.position.x,
-            playerTransform.position.y,
-            this.transform.position.z);
+            Vector3 finalPosition = playerTransform.position;
+            finalPosition.z = -10;
+            Vector3 lerpPosition = Vector3.Lerp(this.transform.position, finalPosition, cameraSpeed);
+            this.transform.position = lerpPosition;
         }
-        
     }
 
     public void SetInCutscene(bool inCutscene)

@@ -17,6 +17,7 @@ public abstract class Weapon : MonoBehaviour
     protected int fireTick;
     protected GameObject bullet;
     protected GameObject player;
+    protected new GameObject camera;
     private bool active = false;
 
     // Start is called before the first frame update
@@ -27,6 +28,7 @@ public abstract class Weapon : MonoBehaviour
         Physics2D.IgnoreLayerCollision(8, 11);
         Physics2D.IgnoreLayerCollision(8, 8);
         player = GameObject.Find("Player");
+        camera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -35,8 +37,8 @@ public abstract class Weapon : MonoBehaviour
         if (this.active)
         {
             this.GetComponent<SpriteRenderer>().enabled = true;
-            this.x = Input.mousePosition.x - Screen.width / 2;
-            this.y = Input.mousePosition.y - Screen.height / 2;
+            this.x = Input.mousePosition.x - Camera.main.WorldToScreenPoint(this.transform.parent.position).x;
+            this.y = Input.mousePosition.y - Camera.main.WorldToScreenPoint(this.transform.parent.position).y;
             this.rad = Mathf.Atan2(y, x);
             this.rotation = 180 * rad / Mathf.PI;
             this.transform.eulerAngles = new Vector3(0, 0, rotation);

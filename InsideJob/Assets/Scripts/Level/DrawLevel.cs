@@ -889,6 +889,7 @@ public class DrawLevel : MonoBehaviour
                 doorsOpen[ii, 7] = 1;
             }
 
+            //unlock rooms
             for (int jj = 0; jj < gameRooms[ii].transform.GetChild(2).childCount; jj++)
             {
                 if (doorsOpen[ii, jj] == 1)
@@ -897,6 +898,7 @@ public class DrawLevel : MonoBehaviour
                 }
             }
 
+            //check if player in room ii
             if (InRoom(rooms[ii, 0], rooms[ii, 1], playerTransform.position.x, playerTransform.position.y, roomSize[ii]))
             {
                 //print("in room: " + ii + " at " + rooms[ii, 0] + ", " + rooms[ii, 1]);
