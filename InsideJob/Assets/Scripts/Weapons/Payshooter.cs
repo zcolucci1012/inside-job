@@ -11,6 +11,6 @@ public class Payshooter : Weapon
         newBullet.GetComponent<SpriteRenderer>().enabled = true;
         newBullet.GetComponent<CircleCollider2D>().enabled = true;
         newBullet.GetComponent<Rigidbody2D>().isKinematic = false;
-        newBullet.GetComponent<Rigidbody2D>().AddForce(new Vector3(Mathf.Cos(rad) * BULLET_FORCE, Mathf.Sin(rad) * BULLET_FORCE, 0));
+        newBullet.GetComponent<Rigidbody2D>().AddForce(new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0) * BULLET_FORCE);
     }
 }

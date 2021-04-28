@@ -12,6 +12,8 @@ public abstract class Weapon : MonoBehaviour
     public float SHOP_COST;
     protected float x;
     protected float y;
+    protected float px;
+    protected float py;
     protected float rad;
     protected float rotation;
     protected int fireTick;
@@ -37,38 +39,40 @@ public abstract class Weapon : MonoBehaviour
         if (this.active)
         {
             this.GetComponent<SpriteRenderer>().enabled = true;
-            this.x = Input.mousePosition.x - Camera.main.WorldToScreenPoint(this.transform.parent.position).x;
-            this.y = Input.mousePosition.y - Camera.main.WorldToScreenPoint(this.transform.parent.position).y;
+            this.x = Input.mousePosition.x - Camera.main.WorldToScreenPoint(this.transform.position).x;
+            this.y = Input.mousePosition.y - Camera.main.WorldToScreenPoint(this.transform.position).y;
+            this.px = Input.mousePosition.x - Camera.main.WorldToScreenPoint(player.transform.position).x;
+            this.py = Input.mousePosition.y - Camera.main.WorldToScreenPoint(player.transform.position).y;
             this.rad = Mathf.Atan2(y, x);
             this.rotation = 180 * rad / Mathf.PI;
             this.transform.eulerAngles = new Vector3(0, 0, rotation);
 
-            if (x < -40)
+            if (px < -40)
             {
-                this.transform.position = new Vector3(this.transform.parent.position.x + Mathf.Cos(rad)
+                this.transform.position = new Vector3(player.transform.position.x + Mathf.Cos(rad)
                 * ((RectTransform)this.transform).rect.height - 0.2f,
-                this.transform.parent.position.y + Mathf.Sin(rad)
+                player.transform.position.y + Mathf.Sin(rad)
                 * ((RectTransform)this.transform).rect.width - 0.15f,
-                this.transform.parent.position.z - 0.1f);
+                player.transform.position.z - 0.1f);
             }
-            else if (x <= 40)
+            else if (px <= 40)
             {
-                this.transform.position = new Vector3(this.transform.parent.position.x + Mathf.Cos(rad)
-                * ((RectTransform)this.transform).rect.height + 0.005f * x,
-                this.transform.parent.position.y + Mathf.Sin(rad)
-                * ((RectTransform)this.transform).rect.width - 0.15f,
-                this.transform.parent.position.z - 0.1f);
+                this.transform.position = new Vector3(player.transform.position.x + Mathf.Cos(rad)
+                    * ((RectTransform)this.transform).rect.height + 0.005f * px,
+                    player.transform.position.y + Mathf.Sin(rad)
+                    * ((RectTransform)this.transform).rect.width - 0.15f,
+                    player.transform.position.z - 0.1f);
             }
             else
             {
-                this.transform.position = new Vector3(this.transform.parent.position.x + Mathf.Cos(rad)
+                this.transform.position = new Vector3(player.transform.position.x + Mathf.Cos(rad)
                 * ((RectTransform)this.transform).rect.height + 0.2f,
-                this.transform.parent.position.y + Mathf.Sin(rad)
+                player.transform.position.y + Mathf.Sin(rad)
                 * ((RectTransform)this.transform).rect.width - 0.15f,
-                this.transform.parent.position.z - 0.1f);
+                player.transform.position.z - 0.1f);
             }
 
-            if (y > 0 && x > -40 && x <= 40)
+            if (y > 0 && px > -40 && px <= 40)
             {
                 this.transform.position = new Vector3(this.transform.position.x,
                     this.transform.position.y,
