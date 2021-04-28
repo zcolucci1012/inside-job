@@ -7,6 +7,7 @@ public class WeaponPickup : Pickup
     private SpriteRenderer spriteRenderer;
     private WeaponInventory weaponInventory;
     private string weaponName = "";
+    private float weaponCost;
 
     protected override void EffectOnPickup()
     {
@@ -20,7 +21,7 @@ public class WeaponPickup : Pickup
     }
 
 
-    public void SetWeaponName(string weaponName)
+    public void SetWeaponName(string weaponName, bool free)
     {
         this.weaponName = weaponName;
         this.weaponInventory = GameObject.Find("Weapons").GetComponent<WeaponInventory>();
@@ -32,6 +33,14 @@ public class WeaponPickup : Pickup
             int r = Random.Range(0, weapons.Count);
             this.weaponName = weapons[r].name;
             this.spriteRenderer.sprite = weapons[r].gameObject.GetComponent<SpriteRenderer>().sprite;
+            if (!free)
+            {
+                this.shopCost = weapons[r].gameObject.GetComponent<Weapon>().SHOP_COST;
+            } else
+            {
+                this.shopCost = 0;
+            }
+            
             return;
         }
         else if (this.weaponName != "")
@@ -41,10 +50,23 @@ public class WeaponPickup : Pickup
                 if (weapon.name == weaponName)
                 {
                     this.spriteRenderer.sprite = weapon.gameObject.GetComponent<SpriteRenderer>().sprite;
+                    if (!free)
+                    {
+                        this.shopCost = weapon.gameObject.GetComponent<Weapon>().SHOP_COST;
+                    }
+                    else
+                    {
+                        this.shopCost = 0;
+                    }
                     return;
                 }
             }
         }
+    }
+
+    public void SetWeaponName(string weaponName)
+    {
+        SetWeaponName(weaponName, true);
     }
 
     public string GetWeaponName()

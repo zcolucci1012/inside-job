@@ -32,7 +32,7 @@ public class WeaponInventory : MonoBehaviour
         {
             AddWeapon("Buckshot");
         }
-
+        AddWeapon("Pumpstock");
     }
 
     public void AddWeapon(string name)

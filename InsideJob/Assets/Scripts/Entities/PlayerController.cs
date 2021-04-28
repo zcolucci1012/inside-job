@@ -41,7 +41,7 @@ public class PlayerController : EntityWithHealth
             GridData.PrintGrid();
         }
 
-        if (Input.mousePosition.x < Screen.width / 2)
+        if (Input.mousePosition.x < Camera.main.WorldToScreenPoint(this.transform.position).x)
         {
             if (Input.mousePosition.y > 5 * Screen.height / 8)
             {

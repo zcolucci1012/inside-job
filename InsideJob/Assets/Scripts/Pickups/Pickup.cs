@@ -9,7 +9,7 @@ public abstract class Pickup : MonoBehaviour
     protected GameObject eKey;
     protected GameObject cost;
     protected UIController ui;
-    public float COST;
+    protected float shopCost;
 
     // Start is called before the first frame update
     protected void Awake()
@@ -24,10 +24,10 @@ public abstract class Pickup : MonoBehaviour
     {
         if (collider.name == "Player") 
         {
-            if (COST != 0)
+            if (shopCost != 0)
             {
                 cost.GetComponent<Text>().enabled = true;
-                cost.GetComponent<Text>().text = "-$" + COST;
+                cost.GetComponent<Text>().text = "-$" + shopCost;
                 eKey.transform.parent.localPosition = new Vector3(30, 0, 0);
             } else
             {
@@ -38,9 +38,9 @@ public abstract class Pickup : MonoBehaviour
             eKey.transform.parent.gameObject.GetComponent<Image>().enabled = true;
             if (Input.GetKey("e"))
             {
-                if (COST != 0)
+                if (shopCost != 0)
                 {
-                    player.GetComponent<PlayerController>().AddHealth(-COST);
+                    player.GetComponent<PlayerController>().AddHealth(-shopCost);
                 }
                 cost.GetComponent<Text>().enabled = false;
                 eKey.GetComponent<Text>().enabled = false;
@@ -51,6 +51,11 @@ public abstract class Pickup : MonoBehaviour
         }
     }
 
+    public void SetCost(float cost)
+    {
+        this.shopCost = cost;
+    }
+
     private void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.name == "Player")
@@ -59,11 +64,6 @@ public abstract class Pickup : MonoBehaviour
             eKey.GetComponent<Text>().enabled = false;
             eKey.transform.parent.gameObject.GetComponent<Image>().enabled = false;
         }
-    }
-
-    public void SetCost(float cost)
-    {
-        this.COST = cost;
     }
 
     protected abstract void EffectOnPickup();

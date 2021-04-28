@@ -8,15 +8,15 @@ public class LootTables : MonoBehaviour
     public static GameObject FileCabinet()
     {
         int r = Random.Range(0, 100);
-        if (r < 75)
+        if (r < 95)
         {
             return null;
-        } else if (r < 95)
+        } else if (r < 99)
         {
-            return Instantiate(GameObject.Find("Check"));
+            return Free(Instantiate(GameObject.Find("Check")));
         } else
         {
-            return Weapon();
+            return Free(Weapon());
         }
     }
 
@@ -61,16 +61,18 @@ public class LootTables : MonoBehaviour
     public static GameObject Pickup()
     {
         int r = Random.Range(0, 2);
-        if (r == 0)
-        {
-            GameObject check = Instantiate(GameObject.Find("Check"));
-            check.GetComponent<Pickup>().SetCost(20);
-            return check;
-        } else
-        {
-            GameObject weapon = Weapon();
-            weapon.GetComponent<WeaponPickup>().SetCost(50);
-            return weapon;
-        }
+        GameObject weapon = Weapon();
+        return weapon;
+    }
+
+    public static GameObject FreePickup()
+    {
+        return Free(Pickup());
+    }
+
+    private static GameObject Free(GameObject obj)
+    {
+        obj.GetComponent<Pickup>().SetCost(0);
+        return obj;
     }
 }
