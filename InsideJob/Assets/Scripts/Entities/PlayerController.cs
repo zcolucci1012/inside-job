@@ -9,6 +9,7 @@ public class PlayerController : EntityWithHealth
     public UIController ui;
     public WeaponInventory weaponInventory;
     public Sprite[] sprites;
+    public Sprite[] altSprites;
     public AudioClip hurt;
 
     private SpriteRenderer spriteRenderer;
@@ -18,6 +19,7 @@ public class PlayerController : EntityWithHealth
     private int WALK_INTERVAL = 10;
     private int I_FRAMES = 100;
     private int iFrameTick = 0;
+    private Sprite[] currSprites;
 
     // Start is called before the first frame update
     new void Awake()
@@ -25,6 +27,7 @@ public class PlayerController : EntityWithHealth
         base.Awake();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[0];
+        currSprites = sprites;
     }
 
     new void Update()
@@ -43,6 +46,10 @@ public class PlayerController : EntityWithHealth
         if (Input.GetKeyDown("j"))
         {
             GridData.PrintGrid();
+        }
+        if (Input.GetKeyDown("k"))
+        {
+            currSprites = altSprites;
         }
 
         if (Input.mousePosition.x < Camera.main.WorldToScreenPoint(this.transform.position).x)
@@ -129,15 +136,15 @@ public class PlayerController : EntityWithHealth
         {
             if (walkTime % WALK_INTERVAL < WALK_INTERVAL / 2)
             {
-                spriteRenderer.sprite = sprites[(direction - 1) * 2 + 1];
+                spriteRenderer.sprite = currSprites[(direction - 1) * 2 + 1];
             } else
             {
-                spriteRenderer.sprite = sprites[(direction - 1) * 2];
+                spriteRenderer.sprite = currSprites[(direction - 1) * 2];
             }
             walkTime++;
         } else
         {
-            spriteRenderer.sprite = sprites[(direction - 1) * 2];
+            spriteRenderer.sprite = currSprites[(direction - 1) * 2];
             walkTime = 0;
         }
         //Debug.Log(this.transform.position.x + ", " + this.transform.position.y);
@@ -168,9 +175,9 @@ public class PlayerController : EntityWithHealth
         AddHealth(health, true);
     }
     
-    /*
-     * ext = is the damage from an external source? (i.e. gives player I-Frames)
-     */
+    /// <summary>
+    /// <param name="ext">is the damage from an external source? (i.e. gives player I-Frames)</param>
+    /// </summary>
     public void AddHealth(float health, bool ext)
     {
         if (!ext || iFrameTick <= 0)
