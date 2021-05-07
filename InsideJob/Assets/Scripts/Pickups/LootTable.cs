@@ -49,11 +49,11 @@ public class LootTables : MonoBehaviour
         if (r < 50)
         {
             weapon = Instantiate(GameObject.Find("Buckshot Pickup"), null);
-            weapon.GetComponent<WeaponPickup>().SetWeaponName("Buckshot");
+            weapon.GetComponent<WeaponPickup>().SetWeaponName("Buckshot", false);
         } else
         {
             weapon = Instantiate(GameObject.Find("Pumpstock Pickup"), null);
-            weapon.GetComponent<WeaponPickup>().SetWeaponName("Pumpstock");
+            weapon.GetComponent<WeaponPickup>().SetWeaponName("Pumpstock", false);
         }
         return weapon;
     }
@@ -61,8 +61,7 @@ public class LootTables : MonoBehaviour
     public static GameObject Pickup()
     {
         int r = Random.Range(0, 2);
-        GameObject weapon = Weapon();
-        return weapon;
+        return Weapon();
     }
 
     public static GameObject FreePickup()

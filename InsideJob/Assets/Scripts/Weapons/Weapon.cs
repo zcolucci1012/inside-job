@@ -93,7 +93,7 @@ public abstract class Weapon : MonoBehaviour
                 && ((auto && (Input.GetMouseButton(0)) && fireTick == FIRE_RATE)
                 || !auto && (Input.GetMouseButtonDown(0)) && fireTick == FIRE_RATE))
             {
-                player.GetComponent<PlayerController>().AddHealth(-COST);
+                player.GetComponent<PlayerController>().AddHealth(-COST, false);
                 Fire();
                 numBullets--;
                 if (sound != null)

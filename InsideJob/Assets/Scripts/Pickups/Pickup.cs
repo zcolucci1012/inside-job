@@ -40,7 +40,7 @@ public abstract class Pickup : MonoBehaviour
             {
                 if (shopCost != 0)
                 {
-                    player.GetComponent<PlayerController>().AddHealth(-shopCost);
+                    player.GetComponent<PlayerController>().AddHealth(-shopCost, false);
                 }
                 cost.GetComponent<Text>().enabled = false;
                 eKey.GetComponent<Text>().enabled = false;

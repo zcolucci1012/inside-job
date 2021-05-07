@@ -8,12 +8,16 @@ public class PlayerController : EntityWithHealth
     public float RUN_SPEED = 6.0f;
     public UIController ui;
     public WeaponInventory weaponInventory;
-    private SpriteRenderer spriteRenderer;
     public Sprite[] sprites;
+    public AudioClip hurt;
+
+    private SpriteRenderer spriteRenderer;
     private int direction = 1;
     private bool canMove = true;
     private int walkTime = 0;
     private int WALK_INTERVAL = 10;
+    private int I_FRAMES = 100;
+    private int iFrameTick = 0;
 
     // Start is called before the first frame update
     new void Awake()
@@ -137,6 +141,21 @@ public class PlayerController : EntityWithHealth
             walkTime = 0;
         }
         //Debug.Log(this.transform.position.x + ", " + this.transform.position.y);
+        if (iFrameTick > 0)
+        {
+            iFrameTick--;
+            if (iFrameTick % (I_FRAMES / 4) >= I_FRAMES / 16) {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+            }
+            else
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+            }
+            
+        } else
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+        }
     }
 
     public void CanMove(bool canMove)
@@ -146,11 +165,28 @@ public class PlayerController : EntityWithHealth
 
     public override void AddHealth(float health)
     {
-        base.AddHealth(health);
-        if (ui != null)
+        AddHealth(health, true);
+    }
+    
+    /*
+     * ext = is the damage from an external source? (i.e. gives player I-Frames)
+     */
+    public void AddHealth(float health, bool ext)
+    {
+        if (!ext || iFrameTick <= 0)
         {
-            ui.SpawnParticle(health);
+            if (ext && health < 0)
+            {
+                iFrameTick = I_FRAMES;
+                AudioSource.PlayClipAtPoint(hurt, this.transform.position, 4);
+            }
+            base.AddHealth(health);
+            if (ui != null)
+            {
+                ui.SpawnParticle(health);
+            }
         }
+        
     }
 
     protected override void End()

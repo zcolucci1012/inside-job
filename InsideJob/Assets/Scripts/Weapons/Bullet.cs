@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public int[] LAYERS_TO_HIT;
     public int DAMAGE;
-    private bool canHit = false;
+    protected bool canHit = false;
 
     private void Awake()
     {
