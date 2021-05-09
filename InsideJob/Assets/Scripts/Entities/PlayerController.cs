@@ -73,6 +73,11 @@ public class PlayerController : EntityWithHealth
                 direction = 4;
             }
         }
+
+        foreach(Passive p in passives)
+        {
+            p.PassiveUpdate();
+        }
     }
 
     // Update is called once per frame

@@ -944,4 +944,9 @@ public class DrawLevel : MonoBehaviour
         }
         return false;
     }
+
+    public bool[] GetRoomOver()
+    {
+        return (bool[])this.roomOver.Clone();
+    }
 }

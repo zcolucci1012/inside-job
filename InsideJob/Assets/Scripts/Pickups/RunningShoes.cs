@@ -8,6 +8,7 @@ public class RunningShoes : Passive
     {
         base.Awake();
         passiveName = "Running Shoes";
+        passiveMessage = "Run real fast!";
         shopCost = 30;
     }
 
@@ -15,5 +16,10 @@ public class RunningShoes : Passive
     {
         base.EffectOnPickup();
         player.GetComponent<PlayerController>().RUN_SPEED *= 1.2f;
+    }
+
+    public override void PassiveUpdate()
+    {
+        
     }
 }
