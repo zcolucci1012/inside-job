@@ -2714,6 +2714,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1f02980a35e495e418eae9c621d07a78, type: 3}
   - {fileID: 21300000, guid: 509bb7e6385d2264e857c61d8a83f02b, type: 3}
   - {fileID: 21300000, guid: 32da66ea89bf0d44e94860f94ff22954, type: 3}
+  altSprites:
+  - {fileID: 21300000, guid: b22437b38cedf8f46a066c24cbbecc52, type: 3}
+  - {fileID: 21300000, guid: 5844d9db6de558a4ba918f33d69a594f, type: 3}
+  - {fileID: 21300000, guid: 5f6b5610d7bfe6f4f9a14f18216ac4c5, type: 3}
+  - {fileID: 21300000, guid: 6611ce01cda982a459b842d95b6d05c2, type: 3}
+  - {fileID: 21300000, guid: 045df82f13f69054a935de8032d53b10, type: 3}
+  - {fileID: 21300000, guid: 2ac001880cfd54945b35aa7c1beed912, type: 3}
+  - {fileID: 21300000, guid: f66c7af896597e548ae174fbcfeae704, type: 3}
+  - {fileID: 21300000, guid: f1f865805c12e83409eec87da8b7ea52, type: 3}
   hurt: {fileID: 8300000, guid: 926eac05121bb474e92f7ade4ef6640b, type: 3}
 --- !u!81 &810266710
 AudioListener:

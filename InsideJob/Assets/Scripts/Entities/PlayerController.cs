@@ -20,6 +20,7 @@ public class PlayerController : EntityWithHealth
     private int I_FRAMES = 100;
     private int iFrameTick = 0;
     private Sprite[] currSprites;
+    private List<Passive> passives;
 
     // Start is called before the first frame update
     new void Awake()
@@ -28,6 +29,7 @@ public class PlayerController : EntityWithHealth
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[0];
         currSprites = sprites;
+        passives = new List<Passive>();
     }
 
     new void Update()
@@ -199,5 +201,10 @@ public class PlayerController : EntityWithHealth
     protected override void End()
     {
         SceneManager.LoadScene("GameOver");
+    }
+
+    public void AddPassive(Passive p)
+    {
+        passives.Add(p);
     }
 }

@@ -61,7 +61,9 @@ public class LootTables : MonoBehaviour
     public static GameObject Pickup()
     {
         int r = Random.Range(0, 2);
-        return Weapon();
+        GameObject shoes = Instantiate(GameObject.Find("Running Shoes"));
+        return shoes;
+        //return Weapon();
     }
 
     public static GameObject FreePickup()
