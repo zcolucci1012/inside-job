@@ -431,7 +431,7 @@ public class DrawLevel : MonoBehaviour
                         AddToWorld(newStapler, ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(0, 1, 1))
                     {
-                        AddToWorld(LootTables.Pickup(), ii, jj, roomImage, width, height);
+                        AddToWorld(LootTables.Weapon(), ii, jj, roomImage, width, height);
                     } else if (roomImage.GetPixel(ii, jj) == new Color(1, 0, 1))
                     {
                         GameObject newCashier = Instantiate(cashier, this.transform.parent, true);
@@ -445,7 +445,11 @@ public class DrawLevel : MonoBehaviour
                         GameObject newMarketer = Instantiate(marketer, this.transform.parent, true);
                         AddToWorld(newMarketer, ii, jj, roomImage, width, height);
                     }
-                    
+                    else if (roomImage.GetPixel(ii, jj) == new Color(0.8f, 0.8f, 0))
+                    {
+                        AddToWorld(LootTables.Passive(), ii, jj, roomImage, width, height);
+                    }
+
                 }
                 if (style == "first")
                 {

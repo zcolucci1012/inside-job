@@ -11,6 +11,7 @@ public abstract class Pickup : MonoBehaviour
     protected UIController ui;
     protected float shopCost;
 
+
     // Start is called before the first frame update
     protected void Awake()
     {
@@ -54,6 +55,11 @@ public abstract class Pickup : MonoBehaviour
     public void SetCost(float cost)
     {
         this.shopCost = cost;
+    }
+
+    public float GetCost()
+    {
+        return this.shopCost;
     }
 
     private void OnTriggerExit2D(Collider2D collider)

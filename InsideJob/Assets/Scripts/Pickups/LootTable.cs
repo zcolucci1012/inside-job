@@ -16,7 +16,7 @@ public class LootTables : MonoBehaviour
             return Free(Instantiate(GameObject.Find("Check")));
         } else
         {
-            return Free(Weapon());
+            return Free(Pickup());
         }
     }
 
@@ -58,12 +58,36 @@ public class LootTables : MonoBehaviour
         return weapon;
     }
 
+    public static GameObject Passive()
+    {
+        GameObject passive;
+        int r = Random.Range(0, 100);
+        if (r < 33)
+        {
+            passive = Instantiate(GameObject.Find("Running Shoes"));
+        }
+        else if (r < 66)
+        {
+            passive = Instantiate(GameObject.Find("Raise"));
+        }
+        else
+        {
+            passive = Instantiate(GameObject.Find("Employee Discount"));
+        }
+        return passive;
+    }
+
     public static GameObject Pickup()
     {
         int r = Random.Range(0, 2);
-        GameObject raise = Instantiate(GameObject.Find("Raise"));
-        return raise;
-        //return Weapon();
+        if (r == 0)
+        {
+            return Weapon();
+        }
+        else
+        {
+            return Passive();
+        }
     }
 
     public static GameObject FreePickup()
