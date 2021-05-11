@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class LootTables : MonoBehaviour
 {
+    private static string[] passives = new string[]
+    {
+        "Running Shoes",
+        "Raise",
+        "Employee Discount",
+        "The Boss's Coffee"
+    };
 
     public static GameObject FileCabinet()
     {
@@ -61,19 +68,8 @@ public class LootTables : MonoBehaviour
     public static GameObject Passive()
     {
         GameObject passive;
-        int r = Random.Range(0, 100);
-        if (r < 33)
-        {
-            passive = Instantiate(GameObject.Find("Running Shoes"));
-        }
-        else if (r < 66)
-        {
-            passive = Instantiate(GameObject.Find("Raise"));
-        }
-        else
-        {
-            passive = Instantiate(GameObject.Find("Employee Discount"));
-        }
+        int r = Random.Range(0, passives.Length);
+        passive = Instantiate(GameObject.Find(passives[r]));
         return passive;
     }
 

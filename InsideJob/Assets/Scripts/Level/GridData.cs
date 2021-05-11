@@ -18,6 +18,11 @@ public class GridData : MonoBehaviour
             }
         }
     }
+
+    public static void ClearGrid()
+    {
+        grid = new Dictionary<int[], string>(new SamePos());
+    }
 }
 
 class SamePos : EqualityComparer<int[]>

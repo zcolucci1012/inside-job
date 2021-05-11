@@ -90,8 +90,8 @@ public abstract class Weapon : MonoBehaviour
             this.GetComponent<SpriteRenderer>().flipY = x < 0;
 
             if (numBullets > 0
-                && ((auto && (Input.GetMouseButton(0)) && fireTick == FIRE_RATE)
-                || !auto && (Input.GetMouseButtonDown(0)) && fireTick == FIRE_RATE))
+                && ((auto && (Input.GetMouseButton(0)) && fireTick >= FIRE_RATE)
+                || !auto && (Input.GetMouseButtonDown(0)) && fireTick >= FIRE_RATE))
             {
                 player.GetComponent<PlayerController>().AddHealth(-COST, false);
                 Fire();

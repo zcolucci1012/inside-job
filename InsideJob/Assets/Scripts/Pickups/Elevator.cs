@@ -94,7 +94,7 @@ public class Elevator : MonoBehaviour
             }
             else if (animTicks < 205)
             {
-                this.player.SetActive(false);
+                this.player.GetComponent<SpriteRenderer>().enabled = false;
                 spriteRenderer.sprite = sprites[0];
             }
             else if (animTicks < 400)

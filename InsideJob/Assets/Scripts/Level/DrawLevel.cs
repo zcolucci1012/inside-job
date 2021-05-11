@@ -49,6 +49,7 @@ public class DrawLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GridData.ClearGrid();
         enemies = new LinkedList<GameObject>();
         roomImages = Resources.LoadAll<Texture2D>("Tiles/Rooms");
         bigRoomImages = Resources.LoadAll<Texture2D>("Tiles/BigRooms");

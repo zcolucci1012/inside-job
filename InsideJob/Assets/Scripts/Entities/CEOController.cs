@@ -67,7 +67,7 @@ public class CEOController : EnemyController
     new void FixedUpdate()
     {
         base.FixedUpdate();
-        if (awake && cutscene)
+        if (awake && seePlayer && cutscene)
         {
             cutsceneTicks++;
             if (cutsceneTicks < 200)
@@ -89,7 +89,7 @@ public class CEOController : EnemyController
                 cutscene = false;
             }
         }
-        if (awake && !cutscene)
+        if (awake && seePlayer && !cutscene)
         {
             if (!attacking)
             {
