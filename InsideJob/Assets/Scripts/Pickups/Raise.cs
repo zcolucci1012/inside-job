@@ -24,29 +24,11 @@ public class Raise : Passive
     {
         bool[] newRoomOver = GameObject.Find("Grid").GetComponent<DrawLevel>().GetRoomOver();
 
-        //string str2 = "old: ";
-        //if (roomOver != null)
-        //{
-        //    for (int ii = 0; ii < roomOver.Length; ii++)
-        //    {
-        //        str2 += roomOver[ii] + ", ";
-        //    }
-        //    print(str2);
-        //}
-        //string str = "new: ";
-        //for (int ii = 0; ii < newRoomOver.Length; ii++)
-        //{
-        //    str += newRoomOver[ii] + ", ";
-        //}
-        //print(str);
-        
-
         for (int ii = 0; ii < newRoomOver.Length; ii++)
         {
             if (roomOver != null && (newRoomOver[ii] != roomOver[ii]))
             {
                 player.GetComponent<PlayerController>().AddHealth(10);
-                //print("done");
             }
         }
 

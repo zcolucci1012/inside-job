@@ -11,6 +11,8 @@ public class PlayerController : EntityWithHealth
     public Sprite[] sprites;
     public Sprite[] altSprites;
     public AudioClip hurt;
+    public float runMod = 0f;
+    public float speed = 0f;
 
     private SpriteRenderer spriteRenderer;
     private int direction = 1;
@@ -35,6 +37,8 @@ public class PlayerController : EntityWithHealth
     new void Update()
     {
         base.Update();
+        speed = RUN_SPEED + runMod;
+        print(speed);
         if (Input.GetKeyDown(KeyCode.LeftShift)
             || Input.GetKeyDown(KeyCode.RightShift)
             || Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -93,44 +97,44 @@ public class PlayerController : EntityWithHealth
         {
             if (Input.GetKey("up") || Input.GetKey("w"))
             {
-                yVel += RUN_SPEED;
+                yVel += speed;
                 dy++;
             }
             if (Input.GetKey("left") || Input.GetKey("a"))
             {
-                xVel -= RUN_SPEED;
+                xVel -= speed;
                 dx--;
             }
             if (Input.GetKey("down") || Input.GetKey("s"))
             {
-                yVel -= RUN_SPEED;
+                yVel -= speed;
                 dy--;
             }
             if (Input.GetKey("right") || Input.GetKey("d"))
             {
-                xVel += RUN_SPEED;
+                xVel += speed;
                 dx++;
             }
 
             if (dx == 1 && dy == 1)
             {
-                xVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
-                yVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
+                xVel = speed * Mathf.Sqrt(2) / 2;
+                yVel = speed * Mathf.Sqrt(2) / 2;
             }
             else if (dx == -1 && dy == 1)
             {
-                xVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
-                yVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
+                xVel = -speed * Mathf.Sqrt(2) / 2;
+                yVel = speed * Mathf.Sqrt(2) / 2;
             }
             else if (dx == -1 && dy == -1)
             {
-                xVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
-                yVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
+                xVel = -speed * Mathf.Sqrt(2) / 2;
+                yVel = -speed * Mathf.Sqrt(2) / 2;
             }
             else if (dx == 1 && dy == -1)
             {
-                xVel = RUN_SPEED * Mathf.Sqrt(2) / 2;
-                yVel = -RUN_SPEED * Mathf.Sqrt(2) / 2;
+                xVel = speed * Mathf.Sqrt(2) / 2;
+                yVel = -speed * Mathf.Sqrt(2) / 2;
             }
 
             rigidbody.velocity = new Vector2(xVel, yVel);
@@ -169,6 +173,11 @@ public class PlayerController : EntityWithHealth
         } else
         {
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+        }
+
+        foreach (Passive p in passives)
+        {
+            p.PassiveFixedUpdate();
         }
     }
 

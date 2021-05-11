@@ -14,4 +14,9 @@ public abstract class Passive : Pickup
     }
 
     public abstract void PassiveUpdate();
+
+    public virtual void PassiveFixedUpdate()
+    {
+
+    }
 }
