@@ -5,13 +5,16 @@ using UnityEngine;
 public class FileCabinet : EntityWithHealth
 {
     public Sprite[] sprites;
+    public AudioClip destroyed;
     private SpriteRenderer render;
     private bool dead = false;
     private int deadTicks = 10;
+    private bool hasCrowbar = false;
 
     protected override void End()
     {
         this.render.sprite = sprites[3];
+        AudioSource.PlayClipAtPoint(destroyed, GameObject.Find("Player").transform.position);
         dead = true;
     }
 
@@ -56,5 +59,18 @@ public class FileCabinet : EntityWithHealth
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.name == "Player" && hasCrowbar)
+        {
+            this.AddHealth(-1000);
+        }
+    }
+
+    public void SetHasCrowbar(bool hasCrowbar)
+    {
+        this.hasCrowbar = hasCrowbar;
     }
 }

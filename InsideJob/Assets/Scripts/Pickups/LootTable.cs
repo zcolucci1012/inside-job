@@ -12,7 +12,8 @@ public class LootTables : MonoBehaviour
         "The Boss's Coffee",
         "Bag of White Stuff",
         "Orange Suit",
-        "Blueprints"
+        "Blueprints",
+        "The Miracle Crowbar"
     };
 
     public static GameObject FileCabinet()
