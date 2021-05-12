@@ -10,7 +10,9 @@ public class LootTables : MonoBehaviour
         "Raise",
         "Employee Discount",
         "The Boss's Coffee",
-        "Bag of White Stuff"
+        "Bag of White Stuff",
+        "Orange Suit",
+        "Blueprints"
     };
 
     public static GameObject FileCabinet()

@@ -18,6 +18,7 @@ public class Minimap : MonoBehaviour
     private GameObject[] roomSquares;
     private bool initialized = false;
     private float squareSize = 0;
+    private bool hasBlueprints = false;
 
 
     public void SetValues(int[,] rooms, bool[] roomVisited, int currentRoom, int[,] adjacentRooms, int shopIndex, int endIndex, string[] roomSize)
@@ -115,7 +116,7 @@ public class Minimap : MonoBehaviour
                     }
 
 
-                    if (roomVisited[ii])
+                    if (roomVisited[ii] || hasBlueprints)
                     {
                         roomSquares[ii].SetActive(true);
                     }
@@ -132,5 +133,10 @@ public class Minimap : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetHasBlueprints(bool hasBlueprints)
+    {
+        this.hasBlueprints = hasBlueprints;
     }
 }

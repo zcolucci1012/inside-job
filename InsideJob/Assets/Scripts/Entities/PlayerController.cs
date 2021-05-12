@@ -12,7 +12,7 @@ public class PlayerController : EntityWithHealth
     public Sprite[] altSprites;
     public AudioClip hurt;
     public float runMod = 0f;
-    public float speed = 0f;
+    public float ARMOR_MOD = 1f;
 
     private SpriteRenderer spriteRenderer;
     private int direction = 1;
@@ -23,6 +23,7 @@ public class PlayerController : EntityWithHealth
     private int iFrameTick = 0;
     private Sprite[] currSprites;
     private List<Passive> passives;
+    private float speed = 0f;
 
     // Start is called before the first frame update
     new void Awake()
@@ -38,7 +39,6 @@ public class PlayerController : EntityWithHealth
     {
         base.Update();
         speed = RUN_SPEED + runMod;
-        print(speed);
         if (Input.GetKeyDown(KeyCode.LeftShift)
             || Input.GetKeyDown(KeyCode.RightShift)
             || Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -202,6 +202,7 @@ public class PlayerController : EntityWithHealth
             {
                 iFrameTick = I_FRAMES;
                 AudioSource.PlayClipAtPoint(hurt, this.transform.position, 4);
+                health *= ARMOR_MOD;
             }
             base.AddHealth(health);
             if (ui != null)
