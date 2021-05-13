@@ -14,6 +14,9 @@ public class UIController : MonoBehaviour
     public GameObject minimap;
     public GameObject bossHealth;
     public GameObject bossName;
+    public GameObject pause;
+
+    private bool paused = false;
     
 
     // Start is called before the first frame update
@@ -40,6 +43,20 @@ public class UIController : MonoBehaviour
         }
         reticle.transform.position = Input.mousePosition;
         healthText.text = player.GetComponent<EntityWithHealth>().GetHealth().ToString("c2");
+
+        if (Input.GetKeyDown("escape"))
+        {
+            paused = !paused;
+            Time.timeScale = paused ? 0 : 1;
+            pause.SetActive(paused);
+            Weapon[] weapons = Resources.FindObjectsOfTypeAll<Weapon>();
+            foreach (Weapon weapon in weapons)
+            {
+                weapon.enabled = !paused;
+            }
+            //AudioListener.volume = paused ? 0.25f : 1;
+            Cursor.visible = paused;
+        }
     }
 
     public void SpawnParticle(float val)

@@ -12,7 +12,7 @@ public class DoorController : MonoBehaviour
     private Vector3Int[] possibleLocations;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         this.unlocked = false;
         this.possibleLocations = new Vector3Int[] {

@@ -38,4 +38,25 @@ public class BackgroundMusic : MonoBehaviour
     {
         audioSource.Stop();
     }
+
+    public void AdjVolume(float adj)
+    {
+        if (audioSource.volume + adj >= 0
+            && audioSource.volume + adj <= 1)
+        {
+            audioSource.volume += adj;
+        } else if (audioSource.volume + adj < 0)
+        {
+            audioSource.volume = 0;
+        }
+        else if (audioSource.volume + adj > 1)
+        {
+            audioSource.volume = 1;
+        }
+    }
+
+    public float GetVolume()
+    {
+        return audioSource.volume;
+    }
 }

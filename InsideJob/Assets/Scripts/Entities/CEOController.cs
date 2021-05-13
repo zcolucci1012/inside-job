@@ -50,7 +50,7 @@ public class CEOController : EnemyController
     new void Update()
     {
         base.Update();
-        if (awake)
+        if (awake && seePlayer)
         {
             ui.SetBossHealth(this.currentHealth, this.TOTAL_HEALTH, "CEO");
         }
