@@ -19,13 +19,23 @@ public class LootTables : MonoBehaviour
     public static GameObject FileCabinet()
     {
         int r = Random.Range(0, 100);
-        if (r < 95)
+        if (r < 90)
         {
             return null;
-        } else if (r < 99)
+        }
+        else if (r < 92)
+        {
+            return Instantiate(GameObject.Find("Cash25"));
+        }
+        else if (r < 95)
+        {
+            return Instantiate(GameObject.Find("Cash10"));
+        }
+        else if (r < 99)
         {
             return Free(Instantiate(GameObject.Find("Check")));
-        } else
+        }
+        else
         {
             return Free(Pickup());
         }
@@ -75,6 +85,24 @@ public class LootTables : MonoBehaviour
         int r = Random.Range(0, passives.Length);
         passive = Instantiate(GameObject.Find(passives[r]));
         return passive;
+    }
+
+    public static GameObject EnemyDrop()
+    {
+        GameObject cash;
+        int r = Random.Range(0, 20);
+        if (r <= 1)
+        {
+            cash = Instantiate(GameObject.Find("Cash10"));
+        } else if (r <= 2)
+        {
+            cash = Instantiate(GameObject.Find("Cash25"));
+        }
+        else
+        {
+            cash = null;
+        }
+        return cash;
     }
 
     public static GameObject Pickup()

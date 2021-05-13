@@ -31,6 +31,13 @@ public class EnemyController : EntityWithHealth
     {
         playerTransform.gameObject.GetComponent<PlayerController>().AddHealth(REWARD);
         GridData.grid[currCell] = "";
+        GameObject cash = LootTables.EnemyDrop();
+        if (cash != null)
+        {
+            float rad = Random.Range(0, 2 * Mathf.PI);
+            cash.transform.position = this.transform.position;
+            cash.GetComponent<Rigidbody2D>().AddForce(40f * new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)));
+        }
         Destroy(this.gameObject);
     }
 

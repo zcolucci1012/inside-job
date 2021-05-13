@@ -33,6 +33,7 @@ public class PlayerController : EntityWithHealth
         spriteRenderer.sprite = sprites[0];
         currSprites = sprites;
         passives = new List<Passive>();
+        Physics2D.IgnoreLayerCollision(16, 11);
     }
 
     new void Update()
@@ -210,7 +211,6 @@ public class PlayerController : EntityWithHealth
                 ui.SpawnParticle(health);
             }
         }
-        
     }
 
     protected override void End()

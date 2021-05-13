@@ -54,6 +54,8 @@ public class FileCabinet : EntityWithHealth
                 if (pickup != null)
                 {
                     pickup.transform.position = this.transform.position;
+                    float rad = Random.Range(0, 2 * Mathf.PI);
+                    pickup.GetComponent<Rigidbody2D>().AddForce(40f * new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)));
                 }
                 GridData.grid[currCell] = "";
                 Destroy(this.gameObject);

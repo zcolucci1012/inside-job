@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     private Vector3 location;
     private Action<GameObject> onActive = null;
     private Action<GameObject> onSpawn = null;
+    private int delay;
     bool spawning = false;
     int spawnTicks = 0;
     MonoBehaviour[] scripts;
@@ -27,7 +28,7 @@ public class Spawner : MonoBehaviour
     {
         if (this.spawning)
         {
-            if (spawnTicks > 30)
+            if (spawnTicks > delay)
             {
                 foreach (MonoBehaviour script in scripts)
                 {
@@ -46,13 +47,14 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void Spawn(GameObject obj, Vector3 location, Action<GameObject> onActive, Action<GameObject> onSpawn)
+    public void Spawn(GameObject obj, Vector3 location, Action<GameObject> onActive, Action<GameObject> onSpawn, int delay)
     {
         this.obj = obj;
         this.location = location;
         this.onActive = onActive;
         this.onSpawn = onSpawn;
         this.spawning = true;
+        this.delay = delay;
 
         newObj = Instantiate(obj);
         newObj.transform.position = this.location;
@@ -67,13 +69,18 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void Spawn(GameObject obj, Vector3 location, Action<GameObject> onActive, Action<GameObject> onSpawn)
+    {
+        Spawn(obj, location, onActive, onSpawn, 20);
+    }
+
     public void Spawn(GameObject obj, Vector3 location, Action<GameObject> onActive)
     {
-        Spawn(obj, location, onActive, null);
+        Spawn(obj, location, onActive, null, 20);
     }
 
     public void Spawn(GameObject obj, Vector3 location)
     {
-        Spawn(obj, location, null, null);
+        Spawn(obj, location, null, null, 20);
     }
 }
