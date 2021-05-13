@@ -22,7 +22,7 @@ TagManager:
   - Destructable
   - Pickup
   - Entity
-  - 
+  - PickupHitbox
   - 
   - 
   - 
