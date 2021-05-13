@@ -16,6 +16,12 @@ public class LootTables : MonoBehaviour
         "The Miracle Crowbar"
     };
 
+    private static string[] weapons = new string[]
+    {
+        "Buckshot",
+        "Pumpstock"
+    };
+
     public static GameObject FileCabinet()
     {
         int r = Random.Range(0, 100);
@@ -66,16 +72,9 @@ public class LootTables : MonoBehaviour
     public static GameObject Weapon()
     {
         GameObject weapon;
-        int r = Random.Range(0, 100);
-        if (r < 50)
-        {
-            weapon = Instantiate(GameObject.Find("Buckshot Pickup"), null);
-            weapon.GetComponent<WeaponPickup>().SetWeaponName("Buckshot", false);
-        } else
-        {
-            weapon = Instantiate(GameObject.Find("Pumpstock Pickup"), null);
-            weapon.GetComponent<WeaponPickup>().SetWeaponName("Pumpstock", false);
-        }
+        int r = Random.Range(0, weapons.Length);
+        weapon = Instantiate(GameObject.Find(weapons[r] + " Pickup"));
+        weapon.GetComponent<WeaponPickup>().SetWeaponName(weapons[r], false);
         return weapon;
     }
 
