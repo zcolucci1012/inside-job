@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public int DAMAGE;
     protected bool canHit = false;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Physics2D.IgnoreLayerCollision(8, 14);
         Physics2D.IgnoreLayerCollision(9, 14);
@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (canHit)
         {
@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
         if (canHit)
         {

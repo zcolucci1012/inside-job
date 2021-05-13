@@ -62,6 +62,7 @@ public class MarketerController : EnemyController
                 this.newBullet.transform.position = new Vector3(this.bullet.transform.position.x,
                     this.bullet.transform.position.y,
                     this.bullet.transform.position.z);
+                print(newBullet.transform.position.z);
                 this.newBullet.GetComponent<SpriteRenderer>().enabled = true;
                 this.newBullet.GetComponent<BoxCollider2D>().enabled = true;
                 var adj = new Vector3(0, 0, 0);// (playerTransform.position - newBullet.transform.position).normalized / 2;
@@ -81,7 +82,7 @@ public class MarketerController : EnemyController
         float cx = (start.x + end.x) / 2;
         float cy = (start.y + end.y) / 2;
         float rmaj = (end - start).magnitude / 2;
-        float rmin = 2f;
+        float rmin = 1.5f;
         float rad = Mathf.Atan2(end.y - start.y, end.x - start.x);
 
         //print(cx + ", " + cy + ", " + rmaj + ", " + rmin + ", " + rad);

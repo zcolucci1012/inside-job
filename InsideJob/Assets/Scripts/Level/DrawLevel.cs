@@ -83,7 +83,7 @@ public class DrawLevel : MonoBehaviour
             int r = -1;
             if (roomSize[ii] == "small")
             {
-                r = Random.Range(1, roomImages.Length);
+                r = Random.Range(25, roomImages.Length);
             }
             if (roomSize[ii] == "big")
             {
